@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import {
+  Activity,
   AlertTriangle,
   ArrowRight,
   Flag,
@@ -19,12 +20,13 @@ export function generateStaticParams() {
 
 // Same icons the product console uses for these areas.
 const serviceIcons: LucideIcon[] = [
-  Shield,
-  AlertTriangle,
-  Flag,
-  Network,
-  MessagesSquare,
-  Repeat,
+  Shield, // Security & Identity
+  Activity, // Observability
+  AlertTriangle, // SLOs & Incident Management
+  Flag, // Feature Flags
+  Network, // Gateway
+  MessagesSquare, // AI Stack
+  Repeat, // Durable Execution
 ];
 
 export default function LandingPage({ params }: { params: { locale: string } }) {
@@ -75,7 +77,9 @@ export default function LandingPage({ params }: { params: { locale: string } }) 
                       <h3 className="text-sm font-semibold text-foreground">{service.name}</h3>
                     </div>
                     {service.port && (
-                      <span className="font-mono-id text-foreground-tertiary">{service.port}</span>
+                      <span className="font-mono-id shrink-0 whitespace-nowrap text-foreground-tertiary">
+                        {service.port}
+                      </span>
                     )}
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-foreground-secondary">
@@ -97,6 +101,17 @@ export default function LandingPage({ params }: { params: { locale: string } }) 
                 </article>
               );
             })}
+
+            {/* Seven cards leave a hanging cell in the border grid. These keep
+                it rectangular: one fills the gap at two columns, both at three. */}
+            <div
+              aria-hidden="true"
+              className="hidden border-b border-r border-border bg-background-secondary md:block"
+            />
+            <div
+              aria-hidden="true"
+              className="hidden border-b border-r border-border bg-background-secondary lg:block"
+            />
           </div>
         </div>
       </section>

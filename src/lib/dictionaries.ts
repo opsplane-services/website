@@ -65,7 +65,7 @@ const en: Dictionary = {
   meta: {
     title: 'OpsPlane Services',
     description:
-      'One self-hosted platform for everything around your business logic: identity and secrets, incidents, feature flags, an API gateway, an AI stack and durable execution. Fewer vendors, lower cost, small enough to run yourself.',
+      'One self-hosted platform for everything around your business logic: identity and secrets, observability, SLOs and incidents, feature flags, an API gateway, an AI stack and durable execution. Fewer vendors, lower cost, small enough to run yourself.',
   },
   nav: {
     home: 'Home',
@@ -78,7 +78,7 @@ const en: Dictionary = {
     eyebrow: 'One self-hosted platform',
     title: 'Everything around your business logic, in one platform.',
     lede:
-      'Identity and secrets, incident management, feature flags, an API gateway, an AI stack and durable execution — in a single platform you run yourself. Small enough that one team can operate it, broad enough to replace a shelf of SaaS subscriptions. You write the business logic; OpsPlane covers everything around it.',
+      'Identity and secrets, observability, SLOs and incidents, feature flags, an API gateway, an AI stack and durable execution — in a single platform you run yourself. Small enough that one team can operate it, broad enough to replace a shelf of SaaS subscriptions. You write the business logic; OpsPlane covers everything around it.',
     primary: 'Get in touch',
   },
   services: {
@@ -100,15 +100,26 @@ const en: Dictionary = {
         ],
       },
       {
-        name: 'Incident Management',
+        name: 'Observability',
+        description:
+          'Metrics, logs and traces from your services under one query surface, feeding the same objectives and alerts the incident side runs on.',
+        points: [
+          'Metrics, logs and traces in one place',
+          'OpenTelemetry ingest — no proprietary agent to install',
+          'Dashboards per service and per team',
+          'Feeds service level objectives and alerting directly',
+        ],
+      },
+      {
+        name: 'SLOs & Incident Management',
         port: 'Rust · :8000',
         description:
-          'Turns alert noise into a reviewable incident record, with a state machine that matches how teams actually work.',
+          'Tracks the service objectives that decide what counts as a problem, and turns the resulting alert noise into a reviewable incident record.',
         points: [
+          'Service level objectives with error budgets and burn-rate alerting',
           'Webhook pipeline with deduplication and grouping',
-          'Connectors for multiple Grafana instances',
           'Incident state machine and full timeline',
-          'Alert-to-incident correlation',
+          'Connectors for multiple Grafana instances',
         ],
       },
       {
@@ -166,9 +177,9 @@ const en: Dictionary = {
       'Every service here is something teams normally buy separately. Bought separately, each one also has to be integrated separately, reviewed separately and renewed separately — and that is rarely the bill anyone counts.',
     points: [
       {
-        title: 'One deployment instead of six subscriptions',
+        title: 'One deployment instead of seven subscriptions',
         body:
-          'Feature flags, incident management, secret management, a gateway and an AI layer are five or six vendors at most companies. Here they are one thing you run.',
+          'Feature flags, observability, incident management, secret management, a gateway and an AI layer are six or seven vendors at most companies. Here they are one thing you run.',
       },
       {
         title: 'One integration, not one per pair',
@@ -282,7 +293,7 @@ const hu: Dictionary = {
   meta: {
     title: 'OpsPlane Services',
     description:
-      'Egyetlen, saját üzemeltetésű platform mindenre, ami az üzleti logikád körül kell: azonosítás és titokkezelés, incidensek, feature flagek, API gateway, AI stack és durable execution. Kevesebb szállító, kisebb költség, elég kicsi ahhoz, hogy magad üzemeltesd.',
+      'Egyetlen, saját üzemeltetésű platform mindenre, ami az üzleti logikád körül kell: azonosítás és titokkezelés, observability, SLO-k és incidensek, feature flagek, API gateway, AI stack és durable execution. Kevesebb szállító, kisebb költség, elég kicsi ahhoz, hogy magad üzemeltesd.',
   },
   nav: {
     home: 'Főoldal',
@@ -295,7 +306,7 @@ const hu: Dictionary = {
     eyebrow: 'Egyetlen, saját üzemeltetésű platform',
     title: 'Minden, ami az üzleti logikád körül kell, egy platformban.',
     lede:
-      'Azonosítás és titokkezelés, incidenskezelés, feature flagek, API gateway, AI stack és durable execution — egyetlen platformban, amit magad üzemeltetsz. Elég kicsi ahhoz, hogy egy csapat működtesse, és elég széles ahhoz, hogy kiváltson egy polcnyi SaaS előfizetést. Te az üzleti logikát írod; a körülötte lévő részt az OpsPlane hozza.',
+      'Azonosítás és titokkezelés, observability, SLO-k és incidensek, feature flagek, API gateway, AI stack és durable execution — egyetlen platformban, amit magad üzemeltetsz. Elég kicsi ahhoz, hogy egy csapat működtesse, és elég széles ahhoz, hogy kiváltson egy polcnyi SaaS előfizetést. Te az üzleti logikát írod; a körülötte lévő részt az OpsPlane hozza.',
     primary: 'Írj nekünk',
   },
   services: {
@@ -317,15 +328,26 @@ const hu: Dictionary = {
         ],
       },
       {
-        name: 'Incidenskezelés',
+        name: 'Observability',
+        description:
+          'Metrikák, logok és trace-ek a szolgáltatásaidból egyetlen lekérdezési felületen, ugyanazokat a célokat és riasztásokat táplálva, amikre az incidensoldal épül.',
+        points: [
+          'Metrikák, logok és trace-ek egy helyen',
+          'OpenTelemetry alapú begyűjtés — nincs telepítendő saját ügynök',
+          'Dashboardok szolgáltatásonként és csapatonként',
+          'Közvetlenül táplálja az SLO-kat és a riasztásokat',
+        ],
+      },
+      {
+        name: 'SLO-k és incidenskezelés',
         port: 'Rust · :8000',
         description:
-          'A riasztászajból átnézhető incidensnyilvántartást csinál, olyan állapotgéppel, ami illeszkedik a csapatok tényleges munkájához.',
+          'Követi azokat a szolgáltatási célokat, amelyek eldöntik, mi számít problémának, és az ebből adódó riasztászajból átnézhető incidensnyilvántartást csinál.',
         points: [
+          'SLO-k hibabüdzsével és burn-rate riasztással',
           'Webhook-feldolgozás deduplikációval és csoportosítással',
-          'Konnektorok több Grafana példányhoz',
           'Incidens-állapotgép és teljes idővonal',
-          'Riasztás–incidens összerendelés',
+          'Konnektorok több Grafana példányhoz',
         ],
       },
       {
@@ -383,9 +405,9 @@ const hu: Dictionary = {
       'Itt minden szolgáltatás olyan, amit a csapatok külön szoktak megvenni. Külön megvéve viszont mindet külön is kell integrálni, külön átvilágítani és külön meghosszabbítani — és ezt a számlát ritkán számolja össze bárki.',
     points: [
       {
-        title: 'Egy telepítés hat előfizetés helyett',
+        title: 'Egy telepítés hét előfizetés helyett',
         body:
-          'A feature flagek, az incidenskezelés, a titokkezelés, a gateway és az AI réteg a legtöbb cégnél öt-hat szállító. Itt egyetlen dolog, amit futtatsz.',
+          'A feature flagek, az observability, az incidenskezelés, a titokkezelés, a gateway és az AI réteg a legtöbb cégnél hat-hét szállító. Itt egyetlen dolog, amit futtatsz.',
       },
       {
         title: 'Egy integráció, nem páronként egy',
