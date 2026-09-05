@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design tokens copied verbatim from platform/web/src/app/globals.css */
+
+/* Light mode (default) */
+:root {
+  --color-background: #FFFFFF;
+  --color-background-secondary: #FAFAFA;
+  --color-background-hover: #F5F5F5;
+  --color-foreground: #1A1A1A;
+  --color-foreground-secondary: #666666;
+  --color-foreground-tertiary: #999999;
+  --color-border: #E5E5E5;
+  --color-accent: #000000;
+  --color-accent-foreground: #FFFFFF;
+  --color-severity-critical: #DC2626;
+  --color-severity-high: #EA580C;
+  --color-severity-medium: #CA8A04;
+  --color-severity-low: #2563EB;
+  --color-severity-info: #6B7280;
+}
+
+/* Dark mode */
+.dark {
+  --color-background: #0A0A0A;
+  --color-background-secondary: #141414;
+  --color-background-hover: #1E1E1E;
+  --color-foreground: #E5E5E5;
+  --color-foreground-secondary: #A3A3A3;
+  --color-foreground-tertiary: #737373;
+  --color-border: #2E2E2E;
+  --color-accent: #FFFFFF;
+  --color-accent-foreground: #0A0A0A;
+  --color-severity-critical: #EF4444;
+  --color-severity-high: #F97316;
+  --color-severity-medium: #EAB308;
+  --color-severity-low: #3B82F6;
+  --color-severity-info: #9CA3AF;
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  body {
+    color: var(--color-foreground);
+    background: var(--color-background);
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer components {
+  /* Small uppercase label used throughout the product UI */
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-wide;
+    color: var(--color-foreground-secondary);
+  }
+
+  /* The one-pixel grid the whole site is built on */
+  .grid-cell {
+    @apply border-b border-r border-border p-6;
+  }
+}
+
+@layer utilities {
+  .font-mono-id {
+    font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: 0.8125rem;
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.animate-pulse-dot { animation: pulse-dot 1.5s ease-in-out infinite; }
+
+/* Blog article body. Kept flat and bordered to match the product UI —
+   no rounded corners, no shadows, no decorative colour. */
+.article { color: var(--color-foreground); }
+.article > * + * { margin-top: 1.25rem; }
+.article h2 {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.article h3 { margin-top: 2rem; font-size: 0.9375rem; font-weight: 600; }
+.article p, .article li {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--color-foreground-secondary);
+}
+.article strong { color: var(--color-foreground); font-weight: 600; }
+.article a { color: var(--color-foreground); text-decoration: underline; text-underline-offset: 3px; }
+.article ul, .article ol { padding-left: 1.25rem; }
+.article ul { list-style: disc; }
+.article ol { list-style: decimal; }
+.article li + li { margin-top: 0.375rem; }
+.article code {
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  border: 1px solid var(--color-border);
+  background: var(--color-background-secondary);
+  padding: 0.0625rem 0.25rem;
+}
+.article pre {
+  border: 1px solid var(--color-border);
+  background: var(--color-background-secondary);
+  padding: 1rem;
+  overflow-x: auto;
+}
+.article pre code { border: 0; background: transparent; padding: 0; font-size: 0.8125rem; line-height: 1.6; }
+.article blockquote {
+  border-left: 2px solid var(--color-accent);
+  padding-left: 1rem;
+  color: var(--color-foreground-secondary);
+}
+.article table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+.article th, .article td { border: 1px solid var(--color-border); padding: 0.5rem 0.75rem; text-align: left; }
+.article th { font-weight: 600; background: var(--color-background-secondary); }

@@ -1,0 +1,96 @@
+import Link from 'next/link';
+import Image from 'next/image';
+import { Github, Mail } from 'lucide-react';
+import { withBasePath, type Locale } from '@/lib/i18n';
+import type { Dictionary } from '@/lib/dictionaries';
+import { site } from '@/lib/site';
+
+export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+  return (
+    <footer className="border-t border-border">
+      <div className="mx-auto max-w-6xl px-4 py-10 md:px-6">
+        <div className="grid gap-8 md:grid-cols-3">
+          <div>
+            <div className="flex items-center gap-3">
+              <Image
+                src={withBasePath("/logo-icon.png")}
+                alt="OpsPlane Services"
+                width={24}
+                height={24}
+                className="dark:invert"
+              />
+              <span className="text-sm font-semibold tracking-tight text-foreground">
+                OpsPlane Services
+              </span>
+            </div>
+            <p className="mt-3 max-w-xs text-sm leading-relaxed text-foreground-secondary">
+              {dict.footer.tagline}
+            </p>
+          </div>
+
+          <div>
+            <p className="eyebrow">{dict.footer.navTitle}</p>
+            <ul className="mt-3 space-y-2">
+              {[
+                { href: `/${locale}`, label: dict.nav.home },
+                { href: `/${locale}/blog`, label: dict.nav.blog },
+                { href: `/${locale}/contact`, label: dict.nav.contact },
+              ].map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-foreground-secondary transition-colors hover:text-foreground"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="eyebrow">{dict.footer.resourcesTitle}</p>
+            <ul className="mt-3 space-y-2">
+              <li>
+                <a
+                  href={site.githubPlatform}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm text-foreground-secondary transition-colors hover:text-foreground"
+                >
+                  <Github size={14} strokeWidth={1.5} />
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <a
+                  href={site.docs}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-foreground-secondary transition-colors hover:text-foreground"
+                >
+                  {dict.footer.docs}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${site.email}`}
+                  className="inline-flex items-center gap-2 text-sm text-foreground-secondary transition-colors hover:text-foreground"
+                >
+                  <Mail size={14} strokeWidth={1.5} />
+                  {site.email}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-10 border-t border-border pt-6">
+          <p className="text-xs text-foreground-tertiary">
+            © {new Date().getFullYear()} OpsPlane Services. {dict.footer.rights}
+          </p>
+        </div>
+      </div>
+    </footer>
+  );
+}
