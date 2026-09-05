@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Mail } from 'lucide-react';
-import { withBasePath, type Locale } from '@/lib/i18n';
-import type { Dictionary } from '@/lib/dictionaries';
+import { withBasePath } from '@/lib/paths';
+import { content } from '@/lib/content';
 import { site } from '@/lib/site';
 
-export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function Footer() {
   return (
     <footer className="border-t border-border">
       <div className="mx-auto max-w-6xl px-4 py-10 md:px-6">
@@ -13,7 +13,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           <div>
             <div className="flex items-center gap-3">
               <Image
-                src={withBasePath("/logo-icon.png")}
+                src={withBasePath('/logo-icon.png')}
                 alt="OpsPlane Services"
                 width={24}
                 height={24}
@@ -24,17 +24,17 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               </span>
             </div>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-foreground-secondary">
-              {dict.footer.tagline}
+              {content.footer.tagline}
             </p>
           </div>
 
           <div>
-            <p className="eyebrow">{dict.footer.navTitle}</p>
+            <p className="eyebrow">{content.footer.navTitle}</p>
             <ul className="mt-3 space-y-2">
               {[
-                { href: `/${locale}`, label: dict.nav.home },
-                { href: `/${locale}/blog`, label: dict.nav.blog },
-                { href: `/${locale}/contact`, label: dict.nav.contact },
+                { href: '/', label: content.nav.home },
+                { href: '/blog', label: content.nav.blog },
+                { href: '/contact', label: content.nav.contact },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
@@ -49,7 +49,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           </div>
 
           <div>
-            <p className="eyebrow">{dict.footer.resourcesTitle}</p>
+            <p className="eyebrow">{content.footer.resourcesTitle}</p>
             <ul className="mt-3 space-y-2">
               <li>
                 <a
@@ -66,7 +66,7 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
         <div className="mt-10 border-t border-border pt-6">
           <p className="text-xs text-foreground-tertiary">
-            © {new Date().getFullYear()} OpsPlane Services. {dict.footer.rights}
+            © {new Date().getFullYear()} OpsPlane Services. {content.footer.rights}
           </p>
         </div>
       </div>

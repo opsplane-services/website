@@ -3,23 +3,15 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
-import { getDictionary } from '@/lib/dictionaries';
+import { content } from '@/lib/content';
 import { getPost, getPosts, formatDate } from '@/lib/blog';
-import { locales, isLocale, type Locale } from '@/lib/i18n';
 
 export function generateStaticParams() {
-  return locales.flatMap((locale) =>
-    getPosts(locale).map((post) => ({ locale, slug: post.slug }))
-  );
+  return getPosts().map((post) => ({ slug: post.slug }));
 }
 
-export function generateMetadata({
-  params,
-}: {
-  params: { locale: string; slug: string };
-}): Metadata {
-  if (!isLocale(params.locale)) return {};
-  const post = getPost(params.locale, params.slug);
+export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
+  const post = getPost(params.slug);
   if (!post) return {};
   return {
     title: post.title,
@@ -33,30 +25,27 @@ export function generateMetadata({
   };
 }
 
-export default function BlogPost({ params }: { params: { locale: string; slug: string } }) {
-  if (!isLocale(params.locale)) notFound();
-  const locale = params.locale as Locale;
-  const dict = getDictionary(locale);
-  const post = getPost(locale, params.slug);
+export default function BlogPost({ params }: { params: { slug: string } }) {
+  const post = getPost(params.slug);
   if (!post) notFound();
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-12 md:px-6 md:py-16">
       <Link
-        href={`/${locale}/blog`}
+        href="/blog"
         className="inline-flex items-center gap-1.5 text-sm text-foreground-secondary transition-colors hover:text-foreground"
       >
         <ArrowLeft size={14} strokeWidth={1.5} />
-        {dict.blog.back}
+        {content.blog.back}
       </Link>
 
       <header className="mt-8 border-b border-border pb-8">
         <div className="flex flex-wrap items-center gap-3">
           <time dateTime={post.date} className="font-mono-id text-foreground-tertiary">
-            {formatDate(post.date, locale)}
+            {formatDate(post.date)}
           </time>
           <span className="font-mono-id text-foreground-tertiary">
-            {post.readingMinutes} {dict.blog.minuteRead}
+            {post.readingMinutes} {content.blog.minuteRead}
           </span>
           {post.tags.map((tag) => (
             <Badge key={tag}>{tag}</Badge>
@@ -68,9 +57,7 @@ export default function BlogPost({ params }: { params: { locale: string; slug: s
         {post.excerpt && (
           <p className="mt-4 text-base leading-relaxed text-foreground-secondary">{post.excerpt}</p>
         )}
-        {post.author && (
-          <p className="mt-4 text-sm text-foreground-tertiary">{post.author}</p>
-        )}
+        {post.author && <p className="mt-4 text-sm text-foreground-tertiary">{post.author}</p>}
       </header>
 
       <div className="article mt-8" dangerouslySetInnerHTML={{ __html: post.html }} />

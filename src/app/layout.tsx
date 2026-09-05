@@ -1,19 +1,19 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 import { ThemeProvider } from '@/lib/theme';
-import { withBasePath } from '@/lib/i18n';
+import { withBasePath } from '@/lib/paths';
+import { content } from '@/lib/content';
 import { site } from '@/lib/site';
 
-const inter = Inter({ subsets: ['latin', 'latin-ext'], variable: '--font-inter' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  // No template here — the locale layout owns it, otherwise its own title
-  // gets wrapped and renders as "OpsPlane Services · OpsPlane Services".
-  title: 'OpsPlane Services',
-  description:
-    'A Kubernetes-native operations platform. Auth, incident management, feature flags, secret management and an API gateway — self-hosted on your own infrastructure.',
+  title: { default: content.meta.title, template: `%s · ${content.meta.title}` },
+  description: content.meta.description,
   // Next does not apply basePath to metadata icons or the manifest, so these
   // are prefixed by hand — otherwise they 404 under /website.
   icons: {
@@ -25,6 +25,12 @@ export const metadata: Metadata = {
     apple: withBasePath('/apple-touch-icon.png'),
   },
   manifest: withBasePath('/favicons/site.webmanifest'),
+  openGraph: {
+    title: content.meta.title,
+    description: content.meta.description,
+    locale: 'en_US',
+    type: 'website',
+  },
 };
 
 // Applies the saved theme before first paint so there is no light/dark flash.
@@ -43,7 +49,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="font-sans">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <div className="flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -7,32 +7,31 @@ import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
 import { Menu, X } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
-import { LocaleSwitcher } from './LocaleSwitcher';
-import { withBasePath, type Locale } from '@/lib/i18n';
-import type { Dictionary } from '@/lib/dictionaries';
+import { withBasePath } from '@/lib/paths';
+import { content } from '@/lib/content';
 
-export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function Header() {
   const pathname = usePathname() || '/';
   const [open, setOpen] = useState(false);
 
   const links = [
-    { href: `/${locale}`, label: dict.nav.home, exact: true },
-    { href: `/${locale}/blog`, label: dict.nav.blog, exact: false },
-    { href: `/${locale}/contact`, label: dict.nav.contact, exact: false },
+    { href: '/', label: content.nav.home, exact: true },
+    { href: '/blog', label: content.nav.blog, exact: false },
+    { href: '/contact', label: content.nav.contact, exact: false },
   ];
 
   const isActive = (href: string, exact: boolean) => {
     const current = pathname.replace(/\/$/, '') || '/';
-    const target = href.replace(/\/$/, '');
+    const target = href.replace(/\/$/, '') || '/';
     return exact ? current === target : current === target || current.startsWith(`${target}/`);
   };
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-6">
-        <Link href={`/${locale}`} className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3">
           <Image
-            src={withBasePath("/logo-icon.png")}
+            src={withBasePath('/logo-icon.png')}
             alt="OpsPlane Services"
             width={28}
             height={28}
@@ -62,15 +61,14 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <LocaleSwitcher locale={locale} />
+        <div className="hidden md:flex">
           <ThemeToggle />
         </div>
 
         {/* Mobile toggle */}
         <button
           onClick={() => setOpen((v) => !v)}
-          aria-label={open ? dict.nav.close : dict.nav.menu}
+          aria-label={open ? content.nav.close : content.nav.menu}
           aria-expanded={open}
           className="flex h-9 w-9 items-center justify-center border border-border md:hidden"
         >
@@ -98,11 +96,8 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
               </Link>
             ))}
           </nav>
-          <div className="flex items-center justify-between px-4 py-3">
-            <LocaleSwitcher locale={locale} />
-            <div className="flex items-center gap-2">
-              <ThemeToggle />
-            </div>
+          <div className="flex items-center px-4 py-3">
+            <ThemeToggle />
           </div>
         </div>
       )}

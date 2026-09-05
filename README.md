@@ -1,7 +1,6 @@
 # OpsPlane Services — company website
 
-The public site for OpsPlane Services: landing page, blog and contact form, in English and
-Hungarian.
+The public site for OpsPlane Services: landing page, blog and contact form.
 
 The platform source is not public, so the site deliberately carries no links to a source
 repository, no "view on GitHub" buttons and no clone/quickstart instructions.
@@ -27,17 +26,17 @@ npm run dev      # http://localhost:3000
 ## Project layout
 
 ```
-content/blog/{en,hu}/*.md    Blog posts, one directory per locale
+content/blog/*.md            Blog posts
 src/app/                     App Router pages
-  page.tsx                   / — always hops to English
-  [locale]/page.tsx          Landing page
-  [locale]/blog/             Blog index and post pages
-  [locale]/contact/          Contact page
+  layout.tsx                 Shell: header, footer, theme, metadata
+  page.tsx                   Landing page
+  blog/                      Blog index and post pages
+  contact/                   Contact page
 src/components/              Header, Footer, ContactForm, ui/ (Button, Card, Badge)
 src/lib/
-  dictionaries.ts            All EN/HU copy
-  i18n.ts                    Locale list and helpers
+  content.ts                 All site copy, in one typed object
   blog.ts                    Markdown loading
+  paths.ts                   basePath helper
   site.ts                    URLs, contact address, Formspree id
   theme.tsx                  Light/dark/system theme
 ```
@@ -56,9 +55,7 @@ If the product UI tokens change in `platform/web`, mirror them in `src/app/globa
 
 ## Adding a blog post
 
-Create a markdown file in `content/blog/en/` and — to keep the language switcher working on that
-post — one with **the same filename** in `content/blog/hu/`. A post that exists in only one locale
-404s in the other:
+Drop a markdown file in `content/blog/`. The filename becomes the URL slug:
 
 ```markdown
 ---
@@ -73,14 +70,6 @@ Body in markdown.
 ```
 
 Posts are sorted by `date`, newest first. Reading time is calculated automatically.
-
-## Languages
-
-English is the default and is never overridden — `/` always redirects to `/en`, regardless of the
-visitor's browser language. Hungarian is reached only by choosing **HU** in the header, which swaps
-the first path segment (`/en/blog/x` → `/hu/blog/x`).
-
-To change the default, edit `defaultLocale` in `src/lib/i18n.ts`.
 
 ## Contact email
 
@@ -130,6 +119,5 @@ workflow sets `NEXT_PUBLIC_BASE_PATH=/website`.
 ## Before launch
 
 - [ ] Set the `NEXT_PUBLIC_FORMSPREE_ID` repository variable to switch the contact form on
-- [ ] Review the Hungarian copy in `src/lib/dictionaries.ts`
 - [ ] The AI Stack and Durable Execution service cards describe capabilities presented as
       available. Keep the copy in step with what the platform actually does by launch.

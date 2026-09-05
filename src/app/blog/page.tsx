@@ -1,38 +1,28 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';
 import { Badge } from '@/components/ui/Badge';
-import { getDictionary } from '@/lib/dictionaries';
+import { content } from '@/lib/content';
 import { getPosts, formatDate } from '@/lib/blog';
-import { locales, isLocale, type Locale } from '@/lib/i18n';
 
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
+export const metadata: Metadata = {
+  title: content.blog.title,
+  description: content.blog.lede,
+};
 
-export function generateMetadata({ params }: { params: { locale: string } }): Metadata {
-  if (!isLocale(params.locale)) return {};
-  const dict = getDictionary(params.locale);
-  return { title: dict.blog.title, description: dict.blog.lede };
-}
-
-export default function BlogIndex({ params }: { params: { locale: string } }) {
-  if (!isLocale(params.locale)) notFound();
-  const locale = params.locale as Locale;
-  const dict = getDictionary(locale);
-  const posts = getPosts(locale);
+export default function BlogIndex() {
+  const posts = getPosts();
 
   return (
     <>
       <section className="border-b border-border">
         <div className="mx-auto max-w-4xl px-4 py-16 md:px-6 md:py-20">
-          <p className="eyebrow">{dict.nav.blog}</p>
+          <p className="eyebrow">{content.nav.blog}</p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
-            {dict.blog.title}
+            {content.blog.title}
           </h1>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-foreground-secondary">
-            {dict.blog.lede}
+            {content.blog.lede}
           </p>
         </div>
       </section>
@@ -40,19 +30,19 @@ export default function BlogIndex({ params }: { params: { locale: string } }) {
       <section className="mx-auto max-w-4xl px-4 py-12 md:px-6 md:py-16">
         {posts.length === 0 ? (
           <div className="border border-border p-8 text-center">
-            <p className="text-sm text-foreground-secondary">{dict.blog.empty}</p>
+            <p className="text-sm text-foreground-secondary">{content.blog.empty}</p>
           </div>
         ) : (
           <ul className="border-t border-border">
             {posts.map((post) => (
               <li key={post.slug} className="border-b border-border">
-                <Link href={`/${locale}/blog/${post.slug}`} className="group block py-6">
+                <Link href={`/blog/${post.slug}`} className="group block py-6">
                   <div className="flex flex-wrap items-center gap-3">
                     <time dateTime={post.date} className="font-mono-id text-foreground-tertiary">
-                      {formatDate(post.date, locale)}
+                      {formatDate(post.date)}
                     </time>
                     <span className="font-mono-id text-foreground-tertiary">
-                      {post.readingMinutes} {dict.blog.minuteRead}
+                      {post.readingMinutes} {content.blog.minuteRead}
                     </span>
                     {post.tags.map((tag) => (
                       <Badge key={tag}>{tag}</Badge>
@@ -65,7 +55,7 @@ export default function BlogIndex({ params }: { params: { locale: string } }) {
                     {post.excerpt}
                   </p>
                   <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-foreground">
-                    {dict.blog.readMore}
+                    {content.blog.readMore}
                     <ArrowRight size={14} strokeWidth={1.5} />
                   </span>
                 </Link>

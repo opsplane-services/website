@@ -3,14 +3,14 @@
 import { useState, type FormEvent } from 'react';
 import { AlertCircle, CheckCircle2, Mail, Send } from 'lucide-react';
 import { Button, ButtonLink } from './ui/Button';
-import type { Dictionary } from '@/lib/dictionaries';
+import { content } from '@/lib/content';
 import { site } from '@/lib/site';
 
 const inputClass =
   'mt-1 h-10 w-full border border-border bg-background px-3 text-sm text-foreground outline-none transition-colors placeholder:text-foreground-tertiary focus:border-accent';
 const labelClass = 'block text-xs font-medium uppercase tracking-wide text-foreground-secondary';
 
-export function ContactForm({ dict }: { dict: Dictionary }) {
+export function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   // Without a Formspree id there is no endpoint to post to, so fall back to
@@ -21,9 +21,9 @@ export function ContactForm({ dict }: { dict: Dictionary }) {
         <div className="flex items-start gap-3">
           <Mail size={18} strokeWidth={1.5} className="mt-0.5 shrink-0 text-foreground-secondary" />
           <div>
-            <h2 className="text-sm font-medium text-foreground">{dict.contact.directTitle}</h2>
+            <h2 className="text-sm font-medium text-foreground">{content.contact.directTitle}</h2>
             <p className="mt-1 text-sm leading-relaxed text-foreground-secondary">
-              {dict.contact.directBody}
+              {content.contact.directBody}
             </p>
           </div>
         </div>
@@ -31,7 +31,7 @@ export function ContactForm({ dict }: { dict: Dictionary }) {
           <Mail size={16} strokeWidth={1.5} />
           {site.email}
         </ButtonLink>
-        <p className="mt-3 text-xs text-foreground-tertiary">{dict.contact.mailtoNote}</p>
+        <p className="mt-3 text-xs text-foreground-tertiary">{content.contact.mailtoNote}</p>
       </div>
     );
   }
@@ -64,39 +64,39 @@ export function ContactForm({ dict }: { dict: Dictionary }) {
       {status === 'sent' && (
         <div className="mb-5 flex items-start gap-2 border border-border bg-background-secondary px-3 py-2 text-sm text-foreground">
           <CheckCircle2 size={16} strokeWidth={1.5} className="mt-0.5 shrink-0" />
-          {dict.contact.success}
+          {content.contact.success}
         </div>
       )}
       {status === 'error' && (
         <div className="mb-5 flex items-start gap-2 border border-severity-critical px-3 py-2 text-sm text-severity-critical">
           <AlertCircle size={16} strokeWidth={1.5} className="mt-0.5 shrink-0" />
-          {dict.contact.error}
+          {content.contact.error}
         </div>
       )}
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className={labelClass}>
-            {dict.contact.name}
+            {content.contact.name}
           </label>
           <input id="name" name="name" type="text" required className={inputClass} />
         </div>
         <div>
           <label htmlFor="email" className={labelClass}>
-            {dict.contact.email}
+            {content.contact.email}
           </label>
           <input id="email" name="email" type="email" required className={inputClass} />
         </div>
         <div>
           <label htmlFor="company" className={labelClass}>
-            {dict.contact.company}{' '}
-            <span className="normal-case text-foreground-tertiary">({dict.contact.optional})</span>
+            {content.contact.company}{' '}
+            <span className="normal-case text-foreground-tertiary">({content.contact.optional})</span>
           </label>
           <input id="company" name="company" type="text" className={inputClass} />
         </div>
         <div>
           <label htmlFor="subject" className={labelClass}>
-            {dict.contact.subject}
+            {content.contact.subject}
           </label>
           <input id="subject" name="subject" type="text" required className={inputClass} />
         </div>
@@ -104,7 +104,7 @@ export function ContactForm({ dict }: { dict: Dictionary }) {
 
       <div className="mt-4">
         <label htmlFor="message" className={labelClass}>
-          {dict.contact.message}
+          {content.contact.message}
         </label>
         <textarea
           id="message"
@@ -132,7 +132,7 @@ export function ContactForm({ dict }: { dict: Dictionary }) {
         className="mt-5 w-full sm:w-auto"
       >
         {status !== 'sending' && <Send size={16} strokeWidth={1.5} />}
-        {status === 'sending' ? dict.contact.sending : dict.contact.send}
+        {status === 'sending' ? content.contact.sending : content.contact.send}
       </Button>
     </form>
   );
