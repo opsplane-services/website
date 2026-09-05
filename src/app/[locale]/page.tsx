@@ -58,24 +58,6 @@ export default function LandingPage({ params }: { params: { locale: string } }) 
         </div>
       </section>
 
-      {/* Stats strip */}
-      <section className="border-b border-border">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <dl className="grid grid-cols-2 border-l border-border md:grid-cols-4">
-            {dict.stats.map((stat) => (
-              <div key={stat.label} className="border-b border-r border-border p-6 md:border-b-0">
-                <dt className="text-3xl font-semibold tracking-tight text-foreground">
-                  {stat.value}
-                </dt>
-                <dd className="mt-1 text-xs leading-relaxed text-foreground-secondary">
-                  {stat.label}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
-
       {/* Services */}
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">

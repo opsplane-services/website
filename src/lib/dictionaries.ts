@@ -10,7 +10,6 @@ export interface Dictionary {
     primary: string;
     secondary: string;
   };
-  stats: { value: string; label: string }[];
   services: {
     eyebrow: string;
     title: string;
@@ -87,12 +86,6 @@ const en: Dictionary = {
     primary: 'Get started',
     secondary: 'View on GitHub',
   },
-  stats: [
-    { value: '5', label: 'Platform services' },
-    { value: '19', label: 'Kubernetes CRDs' },
-    { value: '5', label: 'Secret backends' },
-    { value: '1', label: 'Source of truth for identity' },
-  ],
   services: {
     eyebrow: 'The platform',
     title: 'Five services, one control plane',
@@ -284,12 +277,6 @@ const hu: Dictionary = {
     primary: 'Kezdjük el',
     secondary: 'Megnézem GitHubon',
   },
-  stats: [
-    { value: '5', label: 'Platformszolgáltatás' },
-    { value: '19', label: 'Kubernetes CRD' },
-    { value: '5', label: 'Támogatott titoktár' },
-    { value: '1', label: 'Azonosítási forrás' },
-  ],
   services: {
     eyebrow: 'A platform',
     title: 'Öt szolgáltatás, egy vezérlősík',
