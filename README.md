@@ -70,6 +70,14 @@ Body in markdown.
 
 Posts are sorted by `date`, newest first. Reading time is calculated automatically.
 
+## Contact email
+
+The address shown on the contact page and in the footer comes from
+`src/lib/site.ts`, and defaults to `opsplane@proton.me`. To change it without editing code,
+add a repository variable named `NEXT_PUBLIC_CONTACT_EMAIL` under
+**Settings → Secrets and variables → Actions → Variables** — the Pages workflow passes it
+through to the build. Locally, put it in `.env.local`.
+
 ## Contact form
 
 The form posts directly to [Formspree](https://formspree.io) from the browser — there is no server
@@ -109,6 +117,8 @@ workflow sets `NEXT_PUBLIC_BASE_PATH=/website`.
 
 ## Before launch
 
-- [ ] Replace the placeholder contact address in `src/lib/site.ts` (`hello@opsplane.io`)
-- [ ] Set the `NEXT_PUBLIC_FORMSPREE_ID` repository variable
+- [ ] Set the `NEXT_PUBLIC_FORMSPREE_ID` repository variable to switch the contact form on
 - [ ] Review the Hungarian copy in `src/lib/dictionaries.ts`
+- [ ] Re-check the roadmap section (`roadmap` in `dictionaries.ts`) — the AI stack and durable
+      execution entries describe work that has not shipped, and are marked "Planned" on the page.
+      Keep them honest as the plan firms up.

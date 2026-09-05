@@ -36,6 +36,8 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: /website
           NEXT_PUBLIC_SITE_URL: https://opsplane-services.github.io/website
           NEXT_PUBLIC_FORMSPREE_ID: ${{ vars.NEXT_PUBLIC_FORMSPREE_ID }}
+          # Optional — falls back to the address in src/lib/site.ts when unset.
+          NEXT_PUBLIC_CONTACT_EMAIL: ${{ vars.NEXT_PUBLIC_CONTACT_EMAIL }}
         run: npm run build
 
       - uses: actions/upload-pages-artifact@v3

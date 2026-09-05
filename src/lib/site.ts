@@ -6,8 +6,12 @@ export const site = {
   github: 'https://github.com/opsplane-services',
   githubPlatform: 'https://github.com/opsplane-services/platform',
   docs: 'https://github.com/opsplane-services/platform#readme',
-  /** TODO: replace with the real company address before launch. */
-  email: 'hello@opsplane.io',
+  /**
+   * Public contact address. Override without touching code by setting a
+   * NEXT_PUBLIC_CONTACT_EMAIL repository variable (the Pages workflow passes
+   * it through), or by putting it in .env.local for development.
+   */
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'opsplane@proton.me',
   /**
    * Formspree form id (the part after /f/ in the endpoint URL). Set it as a repo
    * variable named NEXT_PUBLIC_FORMSPREE_ID and the contact form posts there.

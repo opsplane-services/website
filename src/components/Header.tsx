@@ -40,7 +40,9 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             priority
             className="dark:invert"
           />
-          <span className="text-sm font-semibold tracking-tight text-foreground">OpsPlane</span>
+          <span className="text-sm font-semibold tracking-tight text-foreground">
+            OpsPlane Services
+          </span>
         </Link>
 
         {/* Desktop nav */}

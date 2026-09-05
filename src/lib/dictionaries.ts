@@ -16,6 +16,19 @@ export interface Dictionary {
     lede: string;
     items: { name: string; port: string; description: string; points: string[] }[];
   };
+  roadmap: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    badge: string;
+    items: { name: string; description: string; points: string[] }[];
+  };
+  value: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    points: { title: string; body: string }[];
+  };
   operator: {
     eyebrow: string;
     title: string;
@@ -68,7 +81,7 @@ const en: Dictionary = {
   meta: {
     title: 'OpsPlane Services',
     description:
-      'A Kubernetes-native operations platform. Auth, incident management, feature flags, secret management and an API gateway — declared as CRDs, run on your own infrastructure.',
+      'One self-hosted platform for everything around your business logic: identity, incidents, feature flags, secrets and an API gateway — with a full AI stack and durable execution on the way. Fewer vendors, lower cost, small enough to run yourself.',
   },
   nav: {
     home: 'Home',
@@ -79,18 +92,18 @@ const en: Dictionary = {
     close: 'Close',
   },
   hero: {
-    eyebrow: 'Kubernetes-native operations platform',
-    title: 'Everything your platform team keeps rebuilding, in one place.',
+    eyebrow: 'One self-hosted platform',
+    title: 'Everything around your business logic, in one platform.',
     lede:
-      'OpsPlane Services bundles identity, incident management, feature flags, secret management and an API gateway into a single self-hosted platform. Every resource is a Kubernetes CRD, reconciled by an operator — so your platform is version-controlled, reviewable and reproducible.',
+      'Identity, incident management, feature flags, secrets and an API gateway today — a full AI stack and durable execution next. Small enough that one team can run it, broad enough to replace a shelf of SaaS subscriptions. You write the business logic; OpsPlane covers everything around it.',
     primary: 'Get started',
     secondary: 'View on GitHub',
   },
   services: {
-    eyebrow: 'The platform',
+    eyebrow: 'Available today',
     title: 'Five services, one control plane',
     lede:
-      'Each service is an independent Rust binary with its own database and API. Run all of them, or just the ones you need — they share one identity model and one gateway.',
+      'Each service is an independent Rust binary with its own database and API. Run all of them, or just the ones you need — they share one identity model, one gateway and one audit trail.',
     items: [
       {
         name: 'Auth',
@@ -154,6 +167,65 @@ const en: Dictionary = {
       },
     ],
   },
+  roadmap: {
+    eyebrow: 'On the roadmap',
+    title: 'Where the platform is going',
+    lede:
+      'These are not shipping yet. They are listed so you can judge the direction before committing to it — not so you can plan around a date.',
+    badge: 'Planned',
+    items: [
+      {
+        name: 'A full AI stack',
+        description:
+          'One chat interface over the whole AI surface — in the spirit of LibreChat, where many separate AI components sit behind a single front end — wired into platform identity and audit from the start rather than bolted on later.',
+        points: [
+          'A single chat interface across model providers',
+          'Prompts, retrieval and tool access managed in one place',
+          'The same users, roles and audit trail as every other service',
+          'Usage visible per team, because it runs on your side',
+        ],
+      },
+      {
+        name: 'Durable execution',
+        description:
+          'Support for durable execution frameworks, so long-running work survives restarts, retries and deploys without you hand-writing the bookkeeping around it.',
+        points: [
+          'Workflows that outlive the process that started them',
+          'Retries, timeouts and compensation handled by the framework',
+          'State kept by the platform, not scattered across your tables',
+          'Your code stays business logic instead of becoming a state machine',
+        ],
+      },
+    ],
+  },
+  value: {
+    eyebrow: 'The economics',
+    title: 'Fewer vendors, lower cost, less to hold together',
+    lede:
+      'Every service here is something teams normally buy separately. Bought separately, each one also has to be integrated separately, reviewed separately and renewed separately — and that is rarely the bill anyone counts.',
+    points: [
+      {
+        title: 'One deployment instead of six subscriptions',
+        body:
+          'Feature flags, incident management, secret management, a gateway and an AI layer are five or six vendors at most companies. Here they are one thing you run.',
+      },
+      {
+        title: 'One integration, not one per pair',
+        body:
+          'The services share identity, gateway and audit trail by design, so you are not writing glue between vendors who never planned for each other.',
+      },
+      {
+        title: 'One security review',
+        body:
+          'One codebase, one deployment, one data boundary to assess — instead of a fresh questionnaire per vendor, every renewal cycle.',
+      },
+      {
+        title: 'Small enough to actually run',
+        body:
+          'A handful of Rust binaries and one PostgreSQL. Self-hosting this is not meant to become a platform team’s full-time job.',
+      },
+    ],
+  },
   operator: {
     eyebrow: 'Declarative by default',
     title: 'Your platform, described in YAML',
@@ -182,6 +254,11 @@ const en: Dictionary = {
     title: 'Opinions worth having',
     items: [
       {
+        title: 'You bring the business logic',
+        body:
+          'Everything a product needs but no product is really about — login, flags, secrets, alerts, long-running work — is the platform’s job. That division is the whole point.',
+      },
+      {
         title: 'Auth is a platform concern',
         body:
           'Identity lives in exactly one service. Everything else validates a token. No duplicated user tables, no drifting permission models.',
@@ -189,12 +266,7 @@ const en: Dictionary = {
       {
         title: 'Self-hosted, not SaaS-shaped',
         body:
-          'Runs on your Kubernetes cluster, against your PostgreSQL, behind your network boundary. Your incident data never leaves your infrastructure.',
-      },
-      {
-        title: 'Boring, fast infrastructure',
-        body:
-          'Rust services on Actix-web, PostgreSQL for state, containers published to GHCR. No exotic dependencies to operate at 3am.',
+          'Runs on your Kubernetes cluster, against your PostgreSQL, behind your network boundary. Your incident data — and later your prompts — never leave your infrastructure.',
       },
       {
         title: 'Open protocols over lock-in',
@@ -214,7 +286,7 @@ const en: Dictionary = {
   cta: {
     title: 'Bring your platform under one roof',
     lede:
-      'Tell us what your team is running today and we will help you work out whether OpsPlane fits — or say so plainly if it does not.',
+      'Tell us what your team is paying for today and we will help you work out whether OpsPlane replaces enough of it to be worth the move — or say so plainly if it does not.',
     primary: 'Get in touch',
     secondary: 'Browse the source',
   },
@@ -247,7 +319,8 @@ const en: Dictionary = {
       'The contact form is not configured yet, so this button opens your email client instead.',
   },
   footer: {
-    tagline: 'A Kubernetes-native operations platform, self-hosted on your own infrastructure.',
+    tagline:
+      'One self-hosted platform for everything around your business logic. Fewer vendors, less to run.',
     navTitle: 'Site',
     resourcesTitle: 'Resources',
     rights: 'All rights reserved.',
@@ -259,7 +332,7 @@ const hu: Dictionary = {
   meta: {
     title: 'OpsPlane Services',
     description:
-      'Kubernetes-natív üzemeltetési platform. Azonosítás, incidenskezelés, feature flagek, titokkezelés és API gateway — CRD-ként leírva, saját infrastruktúrán futtatva.',
+      'Egyetlen, saját üzemeltetésű platform mindenre, ami az üzleti logikád körül kell: azonosítás, incidenskezelés, feature flagek, titokkezelés és API gateway — teljes AI stackkel és durable executionnel a láthatáron. Kevesebb szállító, kisebb költség, elég kicsi ahhoz, hogy magad üzemeltesd.',
   },
   nav: {
     home: 'Főoldal',
@@ -270,18 +343,18 @@ const hu: Dictionary = {
     close: 'Bezárás',
   },
   hero: {
-    eyebrow: 'Kubernetes-natív üzemeltetési platform',
-    title: 'Amit minden platformcsapat újraépít, egy helyen.',
+    eyebrow: 'Egyetlen, saját üzemeltetésű platform',
+    title: 'Minden, ami az üzleti logikád körül kell, egy platformban.',
     lede:
-      'Az OpsPlane Services egyetlen, saját infrastruktúrán futtatható platformba fogja össze az azonosítást, az incidenskezelést, a feature flageket, a titokkezelést és az API gatewayt. Minden erőforrás Kubernetes CRD, amit egy operátor szinkronizál — így a platform verziókövetett, átnézhető és reprodukálható.',
+      'Ma azonosítás, incidenskezelés, feature flagek, titokkezelés és API gateway — utána teljes AI stack és durable execution. Elég kicsi ahhoz, hogy egy csapat üzemeltesse, és elég széles ahhoz, hogy kiváltson egy polcnyi SaaS előfizetést. Te az üzleti logikát írod; a körülötte lévő részt az OpsPlane hozza.',
     primary: 'Kezdjük el',
     secondary: 'Megnézem GitHubon',
   },
   services: {
-    eyebrow: 'A platform',
+    eyebrow: 'Már elérhető',
     title: 'Öt szolgáltatás, egy vezérlősík',
     lede:
-      'Minden szolgáltatás önálló Rust bináris, saját adatbázissal és API-val. Futtasd mindet, vagy csak azt, amire szükséged van — közös az azonosítási modell és a gateway.',
+      'Minden szolgáltatás önálló Rust bináris, saját adatbázissal és API-val. Futtasd mindet, vagy csak azt, amire szükséged van — közös az azonosítási modell, a gateway és az audit napló.',
     items: [
       {
         name: 'Auth',
@@ -345,6 +418,65 @@ const hu: Dictionary = {
       },
     ],
   },
+  roadmap: {
+    eyebrow: 'A roadmapen',
+    title: 'Merre tart a platform',
+    lede:
+      'Ezek még nem elérhetők. Azért soroljuk fel őket, hogy meg tudd ítélni az irányt, mielőtt elköteleződsz — nem azért, hogy dátumra tervezz velük.',
+    badge: 'Tervezett',
+    items: [
+      {
+        name: 'Teljes AI stack',
+        description:
+          'Egyetlen chat felület a teljes AI felület fölött — a LibreChat szellemében, ahol sok különálló AI komponens ül egyetlen front end mögött —, az első pillanattól a platform azonosításába és auditjába kötve, nem utólag ráaggatva.',
+        points: [
+          'Egyetlen chat felület a modellszolgáltatók fölött',
+          'Promptok, retrieval és eszközhozzáférés egy helyen kezelve',
+          'Ugyanazok a felhasználók, szerepkörök és audit napló, mint minden más szolgáltatásnál',
+          'Csapatonként látható felhasználás, mert nálad fut',
+        ],
+      },
+      {
+        name: 'Durable execution',
+        description:
+          'Durable execution keretrendszerek támogatása, hogy a hosszan futó munka túlélje az újraindításokat, az újrapróbálkozásokat és a deployokat — anélkül, hogy neked kellene kézzel megírnod a körülötte lévő könyvelést.',
+        points: [
+          'Folyamatok, amelyek túlélik az őket indító processzt',
+          'Újrapróbálkozás, időtúllépés és kompenzáció a keretrendszer dolga',
+          'Az állapotot a platform tartja, nem a te tábláidban szóródik szét',
+          'A kódod üzleti logika marad, nem válik állapotgéppé',
+        ],
+      },
+    ],
+  },
+  value: {
+    eyebrow: 'A számok',
+    title: 'Kevesebb szállító, kisebb költség, kevesebb összetartandó darab',
+    lede:
+      'Itt minden szolgáltatás olyan, amit a csapatok külön szoktak megvenni. Külön megvéve viszont mindet külön is kell integrálni, külön átvilágítani és külön meghosszabbítani — és ezt a számlát ritkán számolja össze bárki.',
+    points: [
+      {
+        title: 'Egy telepítés hat előfizetés helyett',
+        body:
+          'A feature flagek, az incidenskezelés, a titokkezelés, a gateway és az AI réteg a legtöbb cégnél öt-hat szállító. Itt egyetlen dolog, amit futtatsz.',
+      },
+      {
+        title: 'Egy integráció, nem páronként egy',
+        body:
+          'A szolgáltatások eleve közös azonosítást, gatewayt és audit naplót használnak, így nem neked kell ragasztókódot írni olyan szállítók közé, akik sosem terveztek egymásra.',
+      },
+      {
+        title: 'Egy biztonsági átvilágítás',
+        body:
+          'Egy kódbázis, egy telepítés, egy adathatár, amit fel kell mérni — szállítónkénti új kérdőívek helyett, minden hosszabbítási körben.',
+      },
+      {
+        title: 'Elég kicsi ahhoz, hogy tényleg üzemeltesd',
+        body:
+          'Néhány Rust bináris és egy PostgreSQL. Ennek a saját üzemeltetése nem arra való, hogy egy platformcsapat főállása legyen.',
+      },
+    ],
+  },
   operator: {
     eyebrow: 'Alapból deklaratív',
     title: 'A platformod, YAML-ben leírva',
@@ -373,6 +505,11 @@ const hu: Dictionary = {
     title: 'Vállalható alapelvek',
     items: [
       {
+        title: 'Te hozod az üzleti logikát',
+        body:
+          'Minden, amire egy terméknek szüksége van, de amiről egyik termék sem szól igazán — bejelentkezés, flagek, titkok, riasztások, hosszan futó munka — a platform dolga. Pontosan ez a felosztás a lényeg.',
+      },
+      {
         title: 'Az azonosítás platformszintű kérdés',
         body:
           'Az identitás pontosan egy szolgáltatásban él. A többi csak tokent validál. Nincs duplikált felhasználótábla és nincs szétcsúszó jogosultsági modell.',
@@ -380,12 +517,7 @@ const hu: Dictionary = {
       {
         title: 'Saját üzemeltetés, nem SaaS',
         body:
-          'A saját Kubernetes klasztereden, a saját PostgreSQL-eden, a saját hálózati határodon belül fut. Az incidensadataid nem hagyják el az infrastruktúrádat.',
-      },
-      {
-        title: 'Unalmas, gyors infrastruktúra',
-        body:
-          'Rust szolgáltatások Actix-web alatt, PostgreSQL az állapotnak, konténerek a GHCR-en. Nincs egzotikus függőség, amit hajnali háromkor kellene üzemeltetni.',
+          'A saját Kubernetes klasztereden, a saját PostgreSQL-eden, a saját hálózati határodon belül fut. Az incidensadataid — és később a promptjaid — nem hagyják el az infrastruktúrádat.',
       },
       {
         title: 'Nyílt protokollok bezártság helyett',
@@ -405,7 +537,7 @@ const hu: Dictionary = {
   cta: {
     title: 'Hozd egy fedél alá a platformodat',
     lede:
-      'Írd meg, mit üzemeltet ma a csapatod, és segítünk kideríteni, hogy illik-e hozzátok az OpsPlane — vagy őszintén megmondjuk, ha nem.',
+      'Írd meg, miért fizet ma a csapatod, és segítünk kideríteni, hogy az OpsPlane eleget vált-e ki ahhoz, hogy megérje a váltás — vagy őszintén megmondjuk, ha nem.',
     primary: 'Írj nekünk',
     secondary: 'Forráskód megtekintése',
   },
@@ -438,7 +570,8 @@ const hu: Dictionary = {
       'A kapcsolatfelvételi űrlap még nincs beállítva, ezért ez a gomb az e-mail kliensedet nyitja meg.',
   },
   footer: {
-    tagline: 'Kubernetes-natív üzemeltetési platform, saját infrastruktúrán futtatva.',
+    tagline:
+      'Egyetlen, saját üzemeltetésű platform mindenre, ami az üzleti logikád körül kell. Kevesebb szállító, kevesebb üzemeltetnivaló.',
     navTitle: 'Oldal',
     resourcesTitle: 'Források',
     rights: 'Minden jog fenntartva.',

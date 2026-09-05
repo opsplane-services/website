@@ -5,11 +5,15 @@ import {
   ArrowRight,
   Flag,
   Github,
+  MessagesSquare,
   Network,
+  Repeat,
   Shield,
+  Sparkles,
   Users,
   type LucideIcon,
 } from 'lucide-react';
+import { Badge } from '@/components/ui/Badge';
 import { ButtonLink } from '@/components/ui/Button';
 import { getDictionary } from '@/lib/dictionaries';
 import { locales, isLocale, type Locale } from '@/lib/i18n';
@@ -21,6 +25,7 @@ export function generateStaticParams() {
 
 // Same icons the product sidebar uses for these areas.
 const serviceIcons: LucideIcon[] = [Users, AlertTriangle, Flag, Shield, Network];
+const roadmapIcons: LucideIcon[] = [MessagesSquare, Repeat];
 
 const QUICKSTART = `git clone https://github.com/opsplane-services/platform.git
 cd platform
@@ -114,6 +119,79 @@ export default function LandingPage({ params }: { params: { locale: string } }) 
                 {dict.cta.primary}
                 <ArrowRight size={14} strokeWidth={1.5} />
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Roadmap — clearly separated from what actually ships today */}
+      <section className="border-b border-border">
+        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
+          <p className="eyebrow">{dict.roadmap.eyebrow}</p>
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+            {dict.roadmap.title}
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-foreground-secondary">
+            {dict.roadmap.lede}
+          </p>
+
+          <div className="mt-10 grid border-l border-t border-border md:grid-cols-2">
+            {dict.roadmap.items.map((item, i) => {
+              const Icon = roadmapIcons[i] ?? Sparkles;
+              return (
+                <article key={item.name} className="border-b border-r border-border p-6">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex items-center gap-2.5">
+                      <Icon size={18} strokeWidth={1.5} className="text-foreground-secondary" />
+                      <h3 className="text-sm font-semibold text-foreground">{item.name}</h3>
+                    </div>
+                    <Badge>{dict.roadmap.badge}</Badge>
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-foreground-secondary">
+                    {item.description}
+                  </p>
+                  <ul className="mt-4 space-y-1.5 border-t border-border pt-4">
+                    {item.points.map((point) => (
+                      <li
+                        key={point}
+                        className="flex gap-2 text-xs leading-relaxed text-foreground-secondary"
+                      >
+                        <span aria-hidden="true" className="text-foreground-tertiary">
+                          —
+                        </span>
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* The consolidation argument */}
+      <section className="border-b border-border">
+        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
+          <div className="grid gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-16">
+            <div>
+              <p className="eyebrow">{dict.value.eyebrow}</p>
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+                {dict.value.title}
+              </h2>
+              <p className="mt-4 text-sm leading-relaxed text-foreground-secondary">
+                {dict.value.lede}
+              </p>
+            </div>
+            <div className="border-t border-border">
+              {dict.value.points.map((point) => (
+                <div key={point.title} className="border-b border-border py-5">
+                  <h3 className="text-sm font-semibold text-foreground">{point.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-foreground-secondary">
+                    {point.body}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
