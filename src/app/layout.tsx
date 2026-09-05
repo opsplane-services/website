@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { Header } from '@/components/Header';
@@ -33,10 +33,18 @@ export const metadata: Metadata = {
   },
 };
 
+// Tints mobile browser chrome to match the page.
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#FFFFFF' },
+    { media: '(prefers-color-scheme: dark)', color: '#0A0A0A' },
+  ],
+};
+
 // Applies the saved theme before first paint so there is no light/dark flash.
 const themeScript = `
 (function(){try{
-  var t=localStorage.getItem('opsplane_theme')||'system';
+  var t=localStorage.getItem('opsplane_theme')||'dark';
   var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);
   document.documentElement.classList.toggle('dark',d);
 }catch(e){}})();
@@ -44,7 +52,9 @@ const themeScript = `
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
+    // Dark is the default, so the static HTML ships with it already applied —
+    // the script below only removes it when a visitor has chosen otherwise.
+    <html lang="en" className={`${inter.variable} dark`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

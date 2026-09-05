@@ -4,8 +4,9 @@
 
 /* Design tokens copied verbatim from platform/web/src/app/globals.css */
 
-/* Light mode (default) */
+/* Light mode */
 :root {
+  color-scheme: light;
   --color-background: #FFFFFF;
   --color-background-secondary: #FAFAFA;
   --color-background-hover: #F5F5F5;
@@ -22,8 +23,10 @@
   --color-severity-info: #6B7280;
 }
 
-/* Dark mode */
+/* Dark mode — the site default. `color-scheme` also darkens native UI
+   (scrollbars, form controls) so they do not glare against the page. */
 .dark {
+  color-scheme: dark;
   --color-background: #0A0A0A;
   --color-background-secondary: #141414;
   --color-background-hover: #1E1E1E;
