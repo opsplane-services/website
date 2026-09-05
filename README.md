@@ -1,7 +1,10 @@
 # OpsPlane Services — company website
 
-The public site for [OpsPlane Services](https://github.com/opsplane-services/platform): landing
-page, blog and contact form, in English and Hungarian.
+The public site for OpsPlane Services: landing page, blog and contact form, in English and
+Hungarian.
+
+The platform source is not public, so the site deliberately carries no links to a source
+repository, no "view on GitHub" buttons and no clone/quickstart instructions.
 
 Built as a static export so it can be served straight from GitHub Pages.
 
@@ -26,7 +29,7 @@ npm run dev      # http://localhost:3000
 ```
 content/blog/{en,hu}/*.md    Blog posts, one directory per locale
 src/app/                     App Router pages
-  page.tsx                   / — picks a locale from the browser
+  page.tsx                   / — always hops to English
   [locale]/page.tsx          Landing page
   [locale]/blog/             Blog index and post pages
   [locale]/contact/          Contact page
@@ -54,7 +57,8 @@ If the product UI tokens change in `platform/web`, mirror them in `src/app/globa
 ## Adding a blog post
 
 Create a markdown file in `content/blog/en/` and — to keep the language switcher working on that
-post — one with **the same filename** in `content/blog/hu/`:
+post — one with **the same filename** in `content/blog/hu/`. A post that exists in only one locale
+404s in the other:
 
 ```markdown
 ---
@@ -69,6 +73,14 @@ Body in markdown.
 ```
 
 Posts are sorted by `date`, newest first. Reading time is calculated automatically.
+
+## Languages
+
+English is the default and is never overridden — `/` always redirects to `/en`, regardless of the
+visitor's browser language. Hungarian is reached only by choosing **HU** in the header, which swaps
+the first path segment (`/en/blog/x` → `/hu/blog/x`).
+
+To change the default, edit `defaultLocale` in `src/lib/i18n.ts`.
 
 ## Contact email
 
@@ -119,6 +131,5 @@ workflow sets `NEXT_PUBLIC_BASE_PATH=/website`.
 
 - [ ] Set the `NEXT_PUBLIC_FORMSPREE_ID` repository variable to switch the contact form on
 - [ ] Review the Hungarian copy in `src/lib/dictionaries.ts`
-- [ ] Re-check the roadmap section (`roadmap` in `dictionaries.ts`) — the AI stack and durable
-      execution entries describe work that has not shipped, and are marked "Planned" on the page.
-      Keep them honest as the plan firms up.
+- [ ] The AI Stack and Durable Execution service cards describe capabilities presented as
+      available. Keep the copy in step with what the platform actually does by launch.

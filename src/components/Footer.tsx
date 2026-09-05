@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Github, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import { withBasePath, type Locale } from '@/lib/i18n';
 import type { Dictionary } from '@/lib/dictionaries';
 import { site } from '@/lib/site';
@@ -51,27 +51,6 @@ export function Footer({ locale, dict }: { locale: Locale; dict: Dictionary }) {
           <div>
             <p className="eyebrow">{dict.footer.resourcesTitle}</p>
             <ul className="mt-3 space-y-2">
-              <li>
-                <a
-                  href={site.githubPlatform}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-foreground-secondary transition-colors hover:text-foreground"
-                >
-                  <Github size={14} strokeWidth={1.5} />
-                  GitHub
-                </a>
-              </li>
-              <li>
-                <a
-                  href={site.docs}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-foreground-secondary transition-colors hover:text-foreground"
-                >
-                  {dict.footer.docs}
-                </a>
-              </li>
               <li>
                 <a
                   href={`mailto:${site.email}`}

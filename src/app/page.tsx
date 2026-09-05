@@ -3,19 +3,18 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { defaultLocale, isLocale } from '@/lib/i18n';
+import { defaultLocale } from '@/lib/i18n';
 
 /**
- * `/` has no content of its own. Static export rules out a server redirect, so
- * this page picks a locale from the browser and hops there. Visitors without
- * JavaScript get the plain links below.
+ * `/` has no content of its own. English is always the default — Hungarian is
+ * reached by choosing it, never by browser language — so this just hops to the
+ * default locale. Visitors without JavaScript get the links below.
  */
 export default function RootPage() {
   const router = useRouter();
 
   useEffect(() => {
-    const preferred = (navigator.language || '').slice(0, 2).toLowerCase();
-    router.replace(`/${isLocale(preferred) ? preferred : defaultLocale}`);
+    router.replace(`/${defaultLocale}`);
   }, [router]);
 
   return (

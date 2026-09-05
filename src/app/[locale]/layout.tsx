@@ -23,7 +23,7 @@ export function generateMetadata({ params }: { params: { locale: string } }): Me
     openGraph: {
       title: dict.meta.title,
       description: dict.meta.description,
-      locale: params.locale === 'hu' ? 'hu_HU' : 'en_GB',
+      locale: params.locale === 'hu' ? 'hu_HU' : 'en_US',
       type: 'website',
     },
   };

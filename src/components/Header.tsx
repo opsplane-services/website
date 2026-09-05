@@ -5,12 +5,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
-import { Github, Menu, X } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { ThemeToggle } from './ThemeToggle';
 import { LocaleSwitcher } from './LocaleSwitcher';
 import { withBasePath, type Locale } from '@/lib/i18n';
 import type { Dictionary } from '@/lib/dictionaries';
-import { site } from '@/lib/site';
 
 export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const pathname = usePathname() || '/';
@@ -66,15 +65,6 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
         <div className="hidden items-center gap-2 md:flex">
           <LocaleSwitcher locale={locale} />
           <ThemeToggle />
-          <a
-            href={site.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={dict.nav.github}
-            className="flex h-[26px] w-[26px] items-center justify-center border border-border text-foreground-secondary transition-colors hover:bg-background-hover"
-          >
-            <Github size={14} strokeWidth={1.5} />
-          </a>
         </div>
 
         {/* Mobile toggle */}
@@ -112,15 +102,6 @@ export function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
             <LocaleSwitcher locale={locale} />
             <div className="flex items-center gap-2">
               <ThemeToggle />
-              <a
-                href={site.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={dict.nav.github}
-                className="flex h-[26px] w-[26px] items-center justify-center border border-border text-foreground-secondary"
-              >
-                <Github size={14} strokeWidth={1.5} />
-              </a>
             </div>
           </div>
         </div>

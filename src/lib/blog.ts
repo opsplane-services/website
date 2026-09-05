@@ -75,7 +75,7 @@ export function formatDate(date: string, locale: Locale): string {
   if (!date) return '';
   const parsed = new Date(date);
   if (Number.isNaN(parsed.getTime())) return date;
-  return parsed.toLocaleDateString(locale === 'hu' ? 'hu-HU' : 'en-GB', {
+  return parsed.toLocaleDateString(locale === 'hu' ? 'hu-HU' : 'en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',

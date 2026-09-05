@@ -2,26 +2,18 @@ import type { Locale } from './i18n';
 
 export interface Dictionary {
   meta: { title: string; description: string };
-  nav: { home: string; blog: string; contact: string; github: string; menu: string; close: string };
+  nav: { home: string; blog: string; contact: string; menu: string; close: string };
   hero: {
     eyebrow: string;
     title: string;
     lede: string;
     primary: string;
-    secondary: string;
   };
   services: {
     eyebrow: string;
     title: string;
     lede: string;
-    items: { name: string; port: string; description: string; points: string[] }[];
-  };
-  roadmap: {
-    eyebrow: string;
-    title: string;
-    lede: string;
-    badge: string;
-    items: { name: string; description: string; points: string[] }[];
+    items: { name: string; port?: string; description: string; points: string[] }[];
   };
   value: {
     eyebrow: string;
@@ -40,14 +32,7 @@ export interface Dictionary {
     title: string;
     items: { title: string; body: string }[];
   };
-  quickstart: {
-    eyebrow: string;
-    title: string;
-    lede: string;
-    note: string;
-    cta: string;
-  };
-  cta: { title: string; lede: string; primary: string; secondary: string };
+  cta: { title: string; lede: string; primary: string };
   blog: {
     title: string;
     lede: string;
@@ -71,23 +56,21 @@ export interface Dictionary {
     optional: string;
     directTitle: string;
     directBody: string;
-    elsewhere: string;
     mailtoNote: string;
   };
-  footer: { tagline: string; navTitle: string; resourcesTitle: string; rights: string; docs: string };
+  footer: { tagline: string; navTitle: string; resourcesTitle: string; rights: string };
 }
 
 const en: Dictionary = {
   meta: {
     title: 'OpsPlane Services',
     description:
-      'One self-hosted platform for everything around your business logic: identity, incidents, feature flags, secrets and an API gateway — with a full AI stack and durable execution on the way. Fewer vendors, lower cost, small enough to run yourself.',
+      'One self-hosted platform for everything around your business logic: identity and secrets, incidents, feature flags, an API gateway, an AI stack and durable execution. Fewer vendors, lower cost, small enough to run yourself.',
   },
   nav: {
     home: 'Home',
     blog: 'Blog',
     contact: 'Contact',
-    github: 'GitHub',
     menu: 'Menu',
     close: 'Close',
   },
@@ -95,26 +78,25 @@ const en: Dictionary = {
     eyebrow: 'One self-hosted platform',
     title: 'Everything around your business logic, in one platform.',
     lede:
-      'Identity, incident management, feature flags, secrets and an API gateway today — a full AI stack and durable execution next. Small enough that one team can run it, broad enough to replace a shelf of SaaS subscriptions. You write the business logic; OpsPlane covers everything around it.',
-    primary: 'Get started',
-    secondary: 'View on GitHub',
+      'Identity and secrets, incident management, feature flags, an API gateway, an AI stack and durable execution — in a single platform you run yourself. Small enough that one team can operate it, broad enough to replace a shelf of SaaS subscriptions. You write the business logic; OpsPlane covers everything around it.',
+    primary: 'Get in touch',
   },
   services: {
-    eyebrow: 'Available today',
-    title: 'Five services, one control plane',
+    eyebrow: 'The platform',
+    title: 'One control plane, everything behind it',
     lede:
-      'Each service is an independent Rust binary with its own database and API. Run all of them, or just the ones you need — they share one identity model, one gateway and one audit trail.',
+      'Each service runs independently, with its own database and API. Run all of them, or only the ones you need — they share one identity model, one gateway and one audit trail.',
     items: [
       {
-        name: 'Auth',
-        port: 'Rust · :8001',
+        name: 'Security & Identity',
+        port: 'Rust · :8083',
         description:
-          'The single source of truth for identity. Other services validate JWTs; they never manage users themselves.',
+          'Who someone is and what they can reach, in one place — and one API in front of every secret store you already run.',
         points: [
-          'OAuth via GitHub and Google, plus local login',
           'Users, groups, roles and organizations',
-          'Service accounts with scoped API keys',
-          'JWT issuing and session management',
+          'OAuth and local login, service accounts with scoped API keys',
+          'HashiCorp Vault, OpenBao, AWS, GCP and Azure secret backends',
+          'RBAC policies by role, group, service account or user',
         ],
       },
       {
@@ -142,42 +124,21 @@ const en: Dictionary = {
         ],
       },
       {
-        name: 'Security',
-        port: 'Rust · :8083',
-        description:
-          'One API in front of every secret store you already run, with access control that reuses your platform roles.',
-        points: [
-          'HashiCorp Vault and OpenBao connectors',
-          'AWS Secrets Manager, GCP Secret Manager, Azure Key Vault',
-          'RBAC policies by role, group, service account or user',
-          'Workload and managed identity support',
-        ],
-      },
-      {
         name: 'Gateway',
         port: 'Rust · :8084 / :8085',
         description:
-          'A reverse proxy that already knows about your platform identity, so authentication is not a plugin you bolt on.',
+          'A reverse proxy that already knows your platform identity, so authentication is not a plugin you bolt on.',
         points: [
           'Path, host and method routing with weighted load balancing',
-          'JWT and API key auth validated against the auth service',
+          'JWT and API key auth validated by the platform itself',
           'Token-bucket rate limiting per key, user, IP or globally',
           'WASM plugins on request and response phases',
         ],
       },
-    ],
-  },
-  roadmap: {
-    eyebrow: 'On the roadmap',
-    title: 'Where the platform is going',
-    lede:
-      'These are not shipping yet. They are listed so you can judge the direction before committing to it — not so you can plan around a date.',
-    badge: 'Planned',
-    items: [
       {
-        name: 'A full AI stack',
+        name: 'AI Stack',
         description:
-          'One chat interface over the whole AI surface — in the spirit of LibreChat, where many separate AI components sit behind a single front end — wired into platform identity and audit from the start rather than bolted on later.',
+          'One chat interface over the whole AI surface — many separate AI components behind a single front end — on the same identity and audit trail as everything else.',
         points: [
           'A single chat interface across model providers',
           'Prompts, retrieval and tool access managed in one place',
@@ -186,12 +147,12 @@ const en: Dictionary = {
         ],
       },
       {
-        name: 'Durable execution',
+        name: 'Durable Execution',
         description:
-          'Support for durable execution frameworks, so long-running work survives restarts, retries and deploys without you hand-writing the bookkeeping around it.',
+          'Long-running work that survives restarts, retries and deploys, so you are not hand-writing the bookkeeping around it.',
         points: [
           'Workflows that outlive the process that started them',
-          'Retries, timeouts and compensation handled by the framework',
+          'Retries, timeouts and compensation handled for you',
           'State kept by the platform, not scattered across your tables',
           'Your code stays business logic instead of becoming a state machine',
         ],
@@ -230,22 +191,22 @@ const en: Dictionary = {
     eyebrow: 'Declarative by default',
     title: 'Your platform, described in YAML',
     lede:
-      'A Go operator watches 19 custom resources and reconciles them into the services behind them. Users, roles, gateway routes, rate limits and secret connectors all live in Git — not in a UI someone clicked through once.',
+      'A Kubernetes operator watches your custom resources and reconciles them into the services behind them. Users, roles, gateway routes, rate limits and secret connectors all live in your Git repository — not in a UI someone clicked through once.',
     points: [
       {
         title: 'GitOps from day one',
         body:
-          'Every platform resource is a CRD, so changes go through the same review and rollback process as your application code.',
+          'Every platform resource is a custom resource, so changes go through the same review and rollback process as your application code.',
       },
       {
         title: 'Reconciled, not scripted',
         body:
-          'The operator syncs custom resources to each service through create-if-not-exists endpoints. Re-applying is always safe.',
+          'The operator syncs resources to each service through create-if-not-exists endpoints. Re-applying is always safe.',
       },
       {
         title: 'A web UI when you want one',
         body:
-          'The Next.js console covers dashboards, incidents, flags, connectors and settings — with dark mode and full mobile support.',
+          'The console covers dashboards, incidents, flags, connectors and settings — with dark mode and full mobile support.',
       },
     ],
   },
@@ -259,14 +220,14 @@ const en: Dictionary = {
           'Everything a product needs but no product is really about — login, flags, secrets, alerts, long-running work — is the platform’s job. That division is the whole point.',
       },
       {
-        title: 'Auth is a platform concern',
+        title: 'One identity, everywhere',
         body:
-          'Identity lives in exactly one service. Everything else validates a token. No duplicated user tables, no drifting permission models.',
+          'Identity is defined once and every service reads it. No duplicated user tables, no permission model that drifts from service to service.',
       },
       {
         title: 'Self-hosted, not SaaS-shaped',
         body:
-          'Runs on your Kubernetes cluster, against your PostgreSQL, behind your network boundary. Your incident data — and later your prompts — never leave your infrastructure.',
+          'Runs on your Kubernetes cluster, against your PostgreSQL, behind your network boundary. Your incident data and your prompts never leave your infrastructure.',
       },
       {
         title: 'Open protocols over lock-in',
@@ -275,20 +236,11 @@ const en: Dictionary = {
       },
     ],
   },
-  quickstart: {
-    eyebrow: 'Quickstart',
-    title: 'Running locally in a few commands',
-    lede:
-      'Start PostgreSQL, create the service databases and bring up every service with a single make target.',
-    note: 'Then open http://localhost:3000 and sign in with the default admin account.',
-    cta: 'Read the full documentation',
-  },
   cta: {
     title: 'Bring your platform under one roof',
     lede:
       'Tell us what your team is paying for today and we will help you work out whether OpsPlane replaces enough of it to be worth the move — or say so plainly if it does not.',
     primary: 'Get in touch',
-    secondary: 'Browse the source',
   },
   blog: {
     title: 'Blog',
@@ -314,7 +266,6 @@ const en: Dictionary = {
     optional: 'optional',
     directTitle: 'Prefer email?',
     directBody: 'Write to us directly and we will pick it up from there.',
-    elsewhere: 'Elsewhere',
     mailtoNote:
       'The contact form is not configured yet, so this button opens your email client instead.',
   },
@@ -322,9 +273,8 @@ const en: Dictionary = {
     tagline:
       'One self-hosted platform for everything around your business logic. Fewer vendors, less to run.',
     navTitle: 'Site',
-    resourcesTitle: 'Resources',
+    resourcesTitle: 'Contact',
     rights: 'All rights reserved.',
-    docs: 'Documentation',
   },
 };
 
@@ -332,13 +282,12 @@ const hu: Dictionary = {
   meta: {
     title: 'OpsPlane Services',
     description:
-      'Egyetlen, saját üzemeltetésű platform mindenre, ami az üzleti logikád körül kell: azonosítás, incidenskezelés, feature flagek, titokkezelés és API gateway — teljes AI stackkel és durable executionnel a láthatáron. Kevesebb szállító, kisebb költség, elég kicsi ahhoz, hogy magad üzemeltesd.',
+      'Egyetlen, saját üzemeltetésű platform mindenre, ami az üzleti logikád körül kell: azonosítás és titokkezelés, incidensek, feature flagek, API gateway, AI stack és durable execution. Kevesebb szállító, kisebb költség, elég kicsi ahhoz, hogy magad üzemeltesd.',
   },
   nav: {
     home: 'Főoldal',
     blog: 'Blog',
     contact: 'Kapcsolat',
-    github: 'GitHub',
     menu: 'Menü',
     close: 'Bezárás',
   },
@@ -346,26 +295,25 @@ const hu: Dictionary = {
     eyebrow: 'Egyetlen, saját üzemeltetésű platform',
     title: 'Minden, ami az üzleti logikád körül kell, egy platformban.',
     lede:
-      'Ma azonosítás, incidenskezelés, feature flagek, titokkezelés és API gateway — utána teljes AI stack és durable execution. Elég kicsi ahhoz, hogy egy csapat üzemeltesse, és elég széles ahhoz, hogy kiváltson egy polcnyi SaaS előfizetést. Te az üzleti logikát írod; a körülötte lévő részt az OpsPlane hozza.',
-    primary: 'Kezdjük el',
-    secondary: 'Megnézem GitHubon',
+      'Azonosítás és titokkezelés, incidenskezelés, feature flagek, API gateway, AI stack és durable execution — egyetlen platformban, amit magad üzemeltetsz. Elég kicsi ahhoz, hogy egy csapat működtesse, és elég széles ahhoz, hogy kiváltson egy polcnyi SaaS előfizetést. Te az üzleti logikát írod; a körülötte lévő részt az OpsPlane hozza.',
+    primary: 'Írj nekünk',
   },
   services: {
-    eyebrow: 'Már elérhető',
-    title: 'Öt szolgáltatás, egy vezérlősík',
+    eyebrow: 'A platform',
+    title: 'Egy vezérlősík, mögötte minden',
     lede:
-      'Minden szolgáltatás önálló Rust bináris, saját adatbázissal és API-val. Futtasd mindet, vagy csak azt, amire szükséged van — közös az azonosítási modell, a gateway és az audit napló.',
+      'Minden szolgáltatás önállóan fut, saját adatbázissal és API-val. Futtasd mindet, vagy csak azt, amire szükséged van — közös az azonosítási modell, a gateway és az audit napló.',
     items: [
       {
-        name: 'Auth',
-        port: 'Rust · :8001',
+        name: 'Biztonság és azonosítás',
+        port: 'Rust · :8083',
         description:
-          'Az azonosítás egyetlen forrása. A többi szolgáltatás JWT-t validál, felhasználót soha nem kezel.',
+          'Egy helyen, hogy ki kicsoda és mit érhet el — és egyetlen API a már használt titoktáraid előtt.',
         points: [
-          'OAuth GitHubbal és Google-lel, valamint helyi bejelentkezés',
           'Felhasználók, csoportok, szerepkörök és szervezetek',
-          'Szolgáltatásfiókok hatókörös API kulcsokkal',
-          'JWT kibocsátás és munkamenet-kezelés',
+          'OAuth és helyi bejelentkezés, szolgáltatásfiókok hatókörös API kulcsokkal',
+          'HashiCorp Vault, OpenBao, AWS, GCP és Azure titoktárak',
+          'RBAC szabályok szerepkör, csoport, szolgáltatásfiók vagy felhasználó szerint',
         ],
       },
       {
@@ -393,42 +341,21 @@ const hu: Dictionary = {
         ],
       },
       {
-        name: 'Biztonság',
-        port: 'Rust · :8083',
-        description:
-          'Egyetlen API a már használt titoktárak előtt, olyan hozzáférés-kezeléssel, ami a platform szerepköreit használja újra.',
-        points: [
-          'HashiCorp Vault és OpenBao konnektorok',
-          'AWS Secrets Manager, GCP Secret Manager, Azure Key Vault',
-          'RBAC szabályok szerepkör, csoport, szolgáltatásfiók vagy felhasználó szerint',
-          'Workload és managed identity támogatás',
-        ],
-      },
-      {
         name: 'Gateway',
         port: 'Rust · :8084 / :8085',
         description:
           'Reverse proxy, amely eleve ismeri a platform azonosítási rendszerét — az autentikáció itt nem utólag felcsavarozott bővítmény.',
         points: [
           'Útvonal, host és metódus szerinti routing, súlyozott terheléselosztással',
-          'JWT és API kulcs alapú hitelesítés az auth szolgáltatáshoz kötve',
+          'JWT és API kulcs alapú hitelesítés, magától a platformtól',
           'Token-bucket rate limit kulcsonként, felhasználónként, IP-nként vagy globálisan',
           'WASM bővítmények kérés és válasz fázisban',
         ],
       },
-    ],
-  },
-  roadmap: {
-    eyebrow: 'A roadmapen',
-    title: 'Merre tart a platform',
-    lede:
-      'Ezek még nem elérhetők. Azért soroljuk fel őket, hogy meg tudd ítélni az irányt, mielőtt elköteleződsz — nem azért, hogy dátumra tervezz velük.',
-    badge: 'Tervezett',
-    items: [
       {
-        name: 'Teljes AI stack',
+        name: 'AI stack',
         description:
-          'Egyetlen chat felület a teljes AI felület fölött — a LibreChat szellemében, ahol sok különálló AI komponens ül egyetlen front end mögött —, az első pillanattól a platform azonosításába és auditjába kötve, nem utólag ráaggatva.',
+          'Egyetlen chat felület a teljes AI felület fölött — sok különálló AI komponens egyetlen front end mögött —, ugyanazon az azonosításon és audit naplón, mint minden más.',
         points: [
           'Egyetlen chat felület a modellszolgáltatók fölött',
           'Promptok, retrieval és eszközhozzáférés egy helyen kezelve',
@@ -439,10 +366,10 @@ const hu: Dictionary = {
       {
         name: 'Durable execution',
         description:
-          'Durable execution keretrendszerek támogatása, hogy a hosszan futó munka túlélje az újraindításokat, az újrapróbálkozásokat és a deployokat — anélkül, hogy neked kellene kézzel megírnod a körülötte lévő könyvelést.',
+          'Hosszan futó munka, ami túléli az újraindításokat, az újrapróbálkozásokat és a deployokat — anélkül, hogy neked kellene kézzel megírnod a körülötte lévő könyvelést.',
         points: [
           'Folyamatok, amelyek túlélik az őket indító processzt',
-          'Újrapróbálkozás, időtúllépés és kompenzáció a keretrendszer dolga',
+          'Újrapróbálkozás, időtúllépés és kompenzáció helyetted megoldva',
           'Az állapotot a platform tartja, nem a te tábláidban szóródik szét',
           'A kódod üzleti logika marad, nem válik állapotgéppé',
         ],
@@ -481,12 +408,12 @@ const hu: Dictionary = {
     eyebrow: 'Alapból deklaratív',
     title: 'A platformod, YAML-ben leírva',
     lede:
-      'Egy Go operátor 19 egyedi erőforrást figyel, és szinkronizálja őket a mögöttes szolgáltatásokba. A felhasználók, szerepkörök, gateway útvonalak, rate limitek és titok-konnektorok mind Gitben élnek — nem egy felületen, ahol valaki egyszer végigkattintotta.',
+      'Egy Kubernetes operátor figyeli az egyedi erőforrásaidat, és szinkronizálja őket a mögöttes szolgáltatásokba. A felhasználók, szerepkörök, gateway útvonalak, rate limitek és titok-konnektorok mind a te Git repódban élnek — nem egy felületen, ahol valaki egyszer végigkattintotta.',
     points: [
       {
         title: 'GitOps az első naptól',
         body:
-          'Minden platform-erőforrás CRD, így a módosítások ugyanazon az átnézési és visszaállítási folyamaton mennek át, mint az alkalmazáskód.',
+          'Minden platform-erőforrás egyedi erőforrás, így a módosítások ugyanazon az átnézési és visszaállítási folyamaton mennek át, mint az alkalmazáskód.',
       },
       {
         title: 'Szinkronizált, nem szkriptelt',
@@ -496,7 +423,7 @@ const hu: Dictionary = {
       {
         title: 'Webes felület, ha kell',
         body:
-          'A Next.js konzol lefedi a dashboardokat, incidenseket, flageket, konnektorokat és beállításokat — sötét témával és teljes mobiltámogatással.',
+          'A konzol lefedi a dashboardokat, incidenseket, flageket, konnektorokat és beállításokat — sötét témával és teljes mobiltámogatással.',
       },
     ],
   },
@@ -510,14 +437,14 @@ const hu: Dictionary = {
           'Minden, amire egy terméknek szüksége van, de amiről egyik termék sem szól igazán — bejelentkezés, flagek, titkok, riasztások, hosszan futó munka — a platform dolga. Pontosan ez a felosztás a lényeg.',
       },
       {
-        title: 'Az azonosítás platformszintű kérdés',
+        title: 'Egy identitás, mindenhol',
         body:
-          'Az identitás pontosan egy szolgáltatásban él. A többi csak tokent validál. Nincs duplikált felhasználótábla és nincs szétcsúszó jogosultsági modell.',
+          'Az identitás egyszer van definiálva, és minden szolgáltatás azt olvassa. Nincs duplikált felhasználótábla és nincs szolgáltatásonként szétcsúszó jogosultsági modell.',
       },
       {
         title: 'Saját üzemeltetés, nem SaaS',
         body:
-          'A saját Kubernetes klasztereden, a saját PostgreSQL-eden, a saját hálózati határodon belül fut. Az incidensadataid — és később a promptjaid — nem hagyják el az infrastruktúrádat.',
+          'A saját Kubernetes klasztereden, a saját PostgreSQL-eden, a saját hálózati határodon belül fut. Az incidensadataid és a promptjaid nem hagyják el az infrastruktúrádat.',
       },
       {
         title: 'Nyílt protokollok bezártság helyett',
@@ -526,20 +453,11 @@ const hu: Dictionary = {
       },
     ],
   },
-  quickstart: {
-    eyebrow: 'Gyors kezdés',
-    title: 'Helyi futtatás néhány paranccsal',
-    lede:
-      'Indítsd el a PostgreSQL-t, hozd létre a szolgáltatás-adatbázisokat, majd egyetlen make paranccsal indítsd az összes szolgáltatást.',
-    note: 'Ezután nyisd meg a http://localhost:3000 címet, és jelentkezz be az alapértelmezett admin fiókkal.',
-    cta: 'Teljes dokumentáció',
-  },
   cta: {
     title: 'Hozd egy fedél alá a platformodat',
     lede:
       'Írd meg, miért fizet ma a csapatod, és segítünk kideríteni, hogy az OpsPlane eleget vált-e ki ahhoz, hogy megérje a váltás — vagy őszintén megmondjuk, ha nem.',
     primary: 'Írj nekünk',
-    secondary: 'Forráskód megtekintése',
   },
   blog: {
     title: 'Blog',
@@ -565,7 +483,6 @@ const hu: Dictionary = {
     optional: 'nem kötelező',
     directTitle: 'Inkább e-mail?',
     directBody: 'Írj közvetlenül, és onnan folytatjuk.',
-    elsewhere: 'Máshol',
     mailtoNote:
       'A kapcsolatfelvételi űrlap még nincs beállítva, ezért ez a gomb az e-mail kliensedet nyitja meg.',
   },
@@ -573,9 +490,8 @@ const hu: Dictionary = {
     tagline:
       'Egyetlen, saját üzemeltetésű platform mindenre, ami az üzleti logikád körül kell. Kevesebb szállító, kevesebb üzemeltetnivaló.',
     navTitle: 'Oldal',
-    resourcesTitle: 'Források',
+    resourcesTitle: 'Kapcsolat',
     rights: 'Minden jog fenntartva.',
-    docs: 'Dokumentáció',
   },
 };
 

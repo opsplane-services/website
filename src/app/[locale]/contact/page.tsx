@@ -1,10 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Github, Mail } from 'lucide-react';
 import { ContactForm } from '@/components/ContactForm';
 import { getDictionary } from '@/lib/dictionaries';
 import { locales, isLocale, type Locale } from '@/lib/i18n';
-import { site } from '@/lib/site';
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -35,42 +33,8 @@ export default function ContactPage({ params }: { params: { locale: string } }) 
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl px-4 py-12 md:px-6 md:py-16">
-        <div className="grid gap-8 lg:grid-cols-[1.6fr_1fr]">
-          <ContactForm dict={dict} />
-
-          <aside className="border border-border">
-            <div className="border-b border-border px-4 py-3">
-              <h2 className="text-sm font-medium text-foreground">{dict.contact.elsewhere}</h2>
-            </div>
-            <ul className="px-4 py-3">
-              {/* Without a form, ContactForm already leads with the address —
-                  no need to print it twice on the same page. */}
-              {site.formspreeId && (
-                <li className="border-b border-border py-3">
-                  <a
-                    href={`mailto:${site.email}`}
-                    className="inline-flex items-center gap-2 text-sm text-foreground-secondary transition-colors hover:text-foreground"
-                  >
-                    <Mail size={14} strokeWidth={1.5} />
-                    {site.email}
-                  </a>
-                </li>
-              )}
-              <li className="py-3">
-                <a
-                  href={site.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-sm text-foreground-secondary transition-colors hover:text-foreground"
-                >
-                  <Github size={14} strokeWidth={1.5} />
-                  github.com/opsplane-services
-                </a>
-              </li>
-            </ul>
-          </aside>
-        </div>
+      <section className="mx-auto max-w-2xl px-4 py-12 md:px-6 md:py-16">
+        <ContactForm dict={dict} />
       </section>
     </>
   );
