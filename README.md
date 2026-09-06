@@ -102,19 +102,37 @@ NEXT_PUBLIC_FORMSPREE_ID=xyzabcde
 Pushes to `master` trigger `.github/workflows/pages.yml`, which builds the site and publishes it to
 GitHub Pages.
 
-**One-time setup:** in the repository, go to **Settings → Pages** and set **Source** to
+**One-time setup:** in the repository, **Settings → Pages** and set **Source** to
 **GitHub Actions**.
 
-The site is then served at `https://opsplane-services.github.io/website/`, which is why the
-workflow sets `NEXT_PUBLIC_BASE_PATH=/website`.
+The site is served from the root of `opsplane.eu`. `public/CNAME` carries the domain into the
+build output, and the workflow sets `NEXT_PUBLIC_SITE_URL` to match.
 
-### Moving to a custom domain
+### DNS
 
-1. Add a `public/CNAME` file containing the domain, e.g. `opsplane.io`.
-2. In `.github/workflows/pages.yml`, remove the `NEXT_PUBLIC_BASE_PATH` line and set
-   `NEXT_PUBLIC_SITE_URL` to `https://opsplane.io`.
-3. Point a `CNAME` DNS record at `opsplane-services.github.io`, then set the custom domain under
-   **Settings → Pages**.
+At the registrar, point the apex at GitHub Pages with four A records on `@`:
+
+```
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+```
+
+and a `CNAME` on `www` to `opsplane-services.github.io.` — then set the custom domain under
+**Settings → Pages** and tick **Enforce HTTPS** once the certificate has been issued.
+
+### Serving from a subpath instead
+
+If the site ever needs to live at `https://<org>.github.io/<repo>/`, delete `public/CNAME` and add
+the path prefix back to the workflow's build step:
+
+```yaml
+NEXT_PUBLIC_BASE_PATH: /website
+```
+
+Without it every asset 404s under a subpath; with it left in place on a root domain, the same
+happens in reverse.
 
 ## Before launch
 

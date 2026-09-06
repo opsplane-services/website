@@ -1,8 +1,8 @@
 /** Single place for the handful of values you will actually want to change. */
 export const site = {
   name: 'OpsPlane Services',
-  /** Used for canonical URLs and Open Graph tags. Change when a custom domain is attached. */
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://opsplane-services.github.io/website',
+  /** Used for canonical URLs and Open Graph tags. */
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://opsplane.eu',
   /**
    * Public contact address. Override without touching code by setting a
    * NEXT_PUBLIC_CONTACT_EMAIL repository variable (the Pages workflow passes

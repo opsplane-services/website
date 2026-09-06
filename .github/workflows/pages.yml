@@ -31,10 +31,10 @@ jobs:
 
       - name: Build static site
         env:
-          # Serving from https://opsplane-services.github.io/website needs the
-          # path prefix. Clear both values when a custom domain is attached.
-          NEXT_PUBLIC_BASE_PATH: /website
-          NEXT_PUBLIC_SITE_URL: https://opsplane-services.github.io/website
+          # Served from the root of the custom domain (public/CNAME), so no
+          # path prefix. Set NEXT_PUBLIC_BASE_PATH only if this ever moves back
+          # to a project subpath like /website.
+          NEXT_PUBLIC_SITE_URL: https://opsplane.eu
           NEXT_PUBLIC_FORMSPREE_ID: ${{ vars.NEXT_PUBLIC_FORMSPREE_ID }}
           # Optional — falls back to the address in src/lib/site.ts when unset.
           NEXT_PUBLIC_CONTACT_EMAIL: ${{ vars.NEXT_PUBLIC_CONTACT_EMAIL }}
