@@ -10,6 +10,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { ButtonLink } from '@/components/ui/Button';
+import { ServicePanel } from '@/components/ServicePanel';
 import { content as dict, type ServiceId } from '@/lib/content';
 
 // Keyed by id rather than position, so reordering the content cannot desync them.
@@ -71,16 +72,10 @@ export default function LandingPage() {
                   <p className="mt-3 text-sm leading-relaxed text-foreground-secondary">
                     {service.description}
                   </p>
-                  {/* The same mark again, but oversized and bleeding off the
-                      panel — a watermark rather than a second copy of the icon. */}
+                  {/* A fragment of the actual console, built from the same
+                      tokens rather than illustrated. */}
                   <div className="mt-6 flex flex-1 items-end">
-                    <div className="relative h-24 w-full overflow-hidden border border-border bg-background-secondary">
-                      <Icon
-                        size={104}
-                        strokeWidth={0.75}
-                        className="absolute -bottom-6 -right-5 text-foreground opacity-[0.09] dark:opacity-[0.14]"
-                      />
-                    </div>
+                    <ServicePanel id={service.id} />
                   </div>
                 </article>
               );
