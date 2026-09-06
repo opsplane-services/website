@@ -74,7 +74,7 @@ Posts are sorted by `date`, newest first. Reading time is calculated automatical
 ## Contact email
 
 The address shown on the contact page and in the footer comes from
-`src/lib/site.ts`, and defaults to `opsplane@proton.me`. To change it without editing code,
+`src/lib/site.ts`, and defaults to `opsplane@opslane.eu`. To change it without editing code,
 add a repository variable named `NEXT_PUBLIC_CONTACT_EMAIL` under
 **Settings → Secrets and variables → Actions → Variables** — the Pages workflow passes it
 through to the build. Locally, put it in `.env.local`.
