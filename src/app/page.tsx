@@ -10,18 +10,19 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { ButtonLink } from '@/components/ui/Button';
-import { content as dict } from '@/lib/content';
+import { ServiceDiagram } from '@/components/ServiceDiagram';
+import { content as dict, type ServiceId } from '@/lib/content';
 
-// Same icons the product console uses for these areas.
-const serviceIcons: LucideIcon[] = [
-  Shield, // Security & Identity
-  Activity, // Observability
-  AlertTriangle, // SLOs & Incident Management
-  Flag, // Feature Flags
-  Network, // Gateway
-  MessagesSquare, // AI Stack
-  Repeat, // Durable Execution
-];
+// Keyed by id rather than position, so reordering the content cannot desync them.
+const serviceIcons: Record<ServiceId, LucideIcon> = {
+  gateway: Network,
+  flags: Flag,
+  ai: MessagesSquare,
+  durable: Repeat,
+  observability: Activity,
+  slo: AlertTriangle,
+  security: Shield,
+};
 
 export default function LandingPage() {
   return (
@@ -57,37 +58,25 @@ export default function LandingPage() {
           </p>
 
           <div className="mt-10 grid border-l border-t border-border md:grid-cols-2 lg:grid-cols-3">
-            {dict.services.items.map((service, i) => {
-              const Icon = serviceIcons[i] ?? Network;
+            {dict.services.items.map((service) => {
+              const Icon = serviceIcons[service.id];
               return (
-                <article key={service.name} className="border-b border-r border-border p-6">
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-2.5">
-                      <Icon size={18} strokeWidth={1.5} className="text-foreground" />
-                      <h3 className="text-sm font-semibold text-foreground">{service.name}</h3>
-                    </div>
-                    {service.port && (
-                      <span className="font-mono-id shrink-0 whitespace-nowrap text-foreground-tertiary">
-                        {service.port}
-                      </span>
-                    )}
+                <article
+                  key={service.id}
+                  className="flex flex-col border-b border-r border-border p-6"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <Icon size={18} strokeWidth={1.5} className="text-foreground" />
+                    <h3 className="text-sm font-semibold text-foreground">{service.name}</h3>
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-foreground-secondary">
                     {service.description}
                   </p>
-                  <ul className="mt-4 space-y-1.5 border-t border-border pt-4">
-                    {service.points.map((point) => (
-                      <li
-                        key={point}
-                        className="flex gap-2 text-xs leading-relaxed text-foreground-secondary"
-                      >
-                        <span aria-hidden="true" className="text-foreground-tertiary">
-                          —
-                        </span>
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="mt-6 flex flex-1 items-end">
+                    <div className="w-full text-foreground-tertiary">
+                      <ServiceDiagram id={service.id} />
+                    </div>
+                  </div>
                 </article>
               );
             })}

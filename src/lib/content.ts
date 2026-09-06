@@ -1,3 +1,12 @@
+export type ServiceId =
+  | 'gateway'
+  | 'flags'
+  | 'ai'
+  | 'durable'
+  | 'observability'
+  | 'slo'
+  | 'security';
+
 export interface SiteContent {
   meta: { title: string; description: string };
   nav: { home: string; blog: string; contact: string; menu: string; close: string };
@@ -11,7 +20,7 @@ export interface SiteContent {
     eyebrow: string;
     title: string;
     lede: string;
-    items: { name: string; port?: string; description: string; points: string[] }[];
+    items: { id: ServiceId; name: string; description: string }[];
   };
   value: {
     eyebrow: string;
@@ -86,85 +95,46 @@ export const content: SiteContent = {
       'Each service runs independently, with its own database and API. Run all of them, or only the ones you need — they share one identity model, one gateway and one audit trail.',
     items: [
       {
-        name: 'Security & Identity',
-        port: 'Rust · :8083',
+        id: 'gateway',
+        name: 'Gateway',
         description:
-          'Who someone is and what they can reach, in one place — and one API in front of every secret store you already run.',
-        points: [
-          'Users, groups, roles and organizations',
-          'OAuth and local login, service accounts with scoped API keys',
-          'HashiCorp Vault, OpenBao, AWS, GCP and Azure secret backends',
-          'RBAC policies by role, group, service account or user',
-        ],
+          'A reverse proxy that already knows your platform identity, with routing, load balancing, rate limits and WASM plugins on both the request and the response path.',
       },
       {
-        name: 'Observability',
-        description:
-          'Metrics, logs and traces from your services under one query surface, feeding the same objectives and alerts the incident side runs on.',
-        points: [
-          'Metrics, logs and traces in one place',
-          'OpenTelemetry ingest — no proprietary agent to install',
-          'Dashboards per service and per team',
-          'Feeds service level objectives and alerting directly',
-        ],
-      },
-      {
-        name: 'SLOs & Incident Management',
-        port: 'Rust · :8000',
-        description:
-          'Tracks the service objectives that decide what counts as a problem, and turns the resulting alert noise into a reviewable incident record.',
-        points: [
-          'Service level objectives with error budgets and burn-rate alerting',
-          'Webhook pipeline with deduplication and grouping',
-          'Incident state machine and full timeline',
-          'Connectors for multiple Grafana instances',
-        ],
-      },
-      {
+        id: 'flags',
         name: 'Feature Flags',
-        port: 'Rust · :8082',
         description:
           'A vendor-neutral flag service that speaks OFREP, so any OpenFeature SDK works against it out of the box.',
-        points: [
-          'OFREP protocol — OpenFeature compatible',
-          'Targeting rules and percentage rollouts',
-          'Environments for dev, staging and production',
-          'Scheduled changes and a full audit log',
-        ],
       },
       {
-        name: 'Gateway',
-        port: 'Rust · :8084 / :8085',
-        description:
-          'A reverse proxy that already knows your platform identity, so authentication is not a plugin you bolt on.',
-        points: [
-          'Path, host and method routing with weighted load balancing',
-          'JWT and API key auth validated by the platform itself',
-          'Token-bucket rate limiting per key, user, IP or globally',
-          'WASM plugins on request and response phases',
-        ],
-      },
-      {
+        id: 'ai',
         name: 'AI Stack',
         description:
-          'One chat interface over the whole AI surface — many separate AI components behind a single front end — on the same identity and audit trail as everything else.',
-        points: [
-          'A single chat interface across model providers',
-          'Prompts, retrieval and tool access managed in one place',
-          'The same users, roles and audit trail as every other service',
-          'Usage visible per team, because it runs on your side',
-        ],
+          'One chat interface over the whole AI surface, with many separate AI components behind a single front end and the same identity and audit trail as everything else.',
       },
       {
+        id: 'durable',
         name: 'Durable Execution',
         description:
           'Long-running work that survives restarts, retries and deploys, so you are not hand-writing the bookkeeping around it.',
-        points: [
-          'Workflows that outlive the process that started them',
-          'Retries, timeouts and compensation handled for you',
-          'State kept by the platform, not scattered across your tables',
-          'Your code stays business logic instead of becoming a state machine',
-        ],
+      },
+      {
+        id: 'observability',
+        name: 'Observability',
+        description:
+          'Metrics, logs and traces from your services under one query surface, feeding the same objectives and alerts the incident side runs on.',
+      },
+      {
+        id: 'slo',
+        name: 'SLOs & Incident Management',
+        description:
+          'Service objectives that decide what counts as a problem, and a reviewable incident record built from the alerts they raise.',
+      },
+      {
+        id: 'security',
+        name: 'Security & Identity',
+        description:
+          'Who someone is and what they can reach, in one place, with a single API in front of every secret store you already run.',
       },
     ],
   },
