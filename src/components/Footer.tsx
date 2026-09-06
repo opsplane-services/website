@@ -33,6 +33,7 @@ export function Footer() {
             <ul className="mt-3 space-y-2">
               {[
                 { href: '/', label: content.nav.home },
+                { href: '/about', label: content.nav.about },
                 { href: '/blog', label: content.nav.blog },
                 { href: '/contact', label: content.nav.contact },
               ].map((link) => (

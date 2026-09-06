@@ -9,7 +9,7 @@ export type ServiceId =
 
 export interface SiteContent {
   meta: { title: string; description: string };
-  nav: { home: string; blog: string; contact: string; menu: string; close: string };
+  nav: { home: string; about: string; blog: string; contact: string; menu: string; close: string };
   hero: {
     eyebrow: string;
     title: string;
@@ -46,6 +46,14 @@ export interface SiteContent {
     items: { title: string; body: string }[];
   };
   cta: { title: string; lede: string; primary: string };
+  about: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    paragraphs: string[];
+    points: { title: string; body: string }[];
+    cta: string;
+  };
   blog: {
     title: string;
     lede: string;
@@ -82,6 +90,7 @@ export const content: SiteContent = {
   },
   nav: {
     home: 'Home',
+    about: 'About',
     blog: 'Blog',
     contact: 'Contact',
     menu: 'Menu',
@@ -244,6 +253,35 @@ export const content: SiteContent = {
     lede:
       'Tell us what your team is paying for today and we will help you work out whether OpsPlane replaces enough of it to be worth the move — or say so plainly if it does not.',
     primary: 'Get in touch',
+  },
+  about: {
+    eyebrow: 'Founded 2022',
+    title: 'Built out of the work, not the other way round.',
+    lede:
+      'OpsPlane Services has spent its first years as an independent consultancy doing platform engineering — building and running the layer underneath other people\u2019s products. The platform came out of that work rather than ahead of it.',
+    paragraphs: [
+      'The engagements were not alike. Different industries, different stacks, teams of five and teams of fifty. What they had in common was the list they arrived at: somewhere to keep identity, somewhere to keep secrets, a way to ship changes behind a flag, a gateway that understood who was calling, and an honest record of what broke and why.',
+      'Every team assembled that list separately — some built, most bought — and every team paid for it twice. Once to make the pieces work together, and again each time a vendor changed something underneath them. The integration was never the interesting part of the job, and it was reliably the part that took the longest.',
+      'OpsPlane is the version of that list where the pieces were designed together from the start. It exists because the same gaps kept appearing across teams that had nothing else in common, not because a market analysis said they would.',
+    ],
+    points: [
+      {
+        title: 'You talk to the people who build it',
+        body:
+          'There is nobody between the person you email and the person writing the code. While the company is this size that is a real advantage, and we would rather use it than pretend to be larger.',
+      },
+      {
+        title: 'The scope came from engagements',
+        body:
+          'Every service in the platform is there because the gap showed up in real work. Nothing is in it to fill out a comparison table.',
+      },
+      {
+        title: 'Small on purpose',
+        body:
+          'The platform is meant to be small enough for one team to operate. Building it as a small company is what keeps that claim honest.',
+      },
+    ],
+    cta: 'Tell us what you are running',
   },
   blog: {
     title: 'Blog',
