@@ -10,7 +10,6 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { ButtonLink } from '@/components/ui/Button';
-import { ServiceDiagram } from '@/components/ServiceDiagram';
 import { content as dict, type ServiceId } from '@/lib/content';
 
 // Keyed by id rather than position, so reordering the content cannot desync them.
@@ -72,10 +71,15 @@ export default function LandingPage() {
                   <p className="mt-3 text-sm leading-relaxed text-foreground-secondary">
                     {service.description}
                   </p>
-                  {/* Full-strength colour — the figure grades itself with opacity. */}
-                  <div className="mt-8 flex flex-1 items-end">
-                    <div className="w-full text-foreground">
-                      <ServiceDiagram id={service.id} />
+                  {/* The same mark again, but oversized and bleeding off the
+                      panel — a watermark rather than a second copy of the icon. */}
+                  <div className="mt-6 flex flex-1 items-end">
+                    <div className="relative h-24 w-full overflow-hidden border border-border bg-background-secondary">
+                      <Icon
+                        size={104}
+                        strokeWidth={0.75}
+                        className="absolute -bottom-6 -right-5 text-foreground opacity-[0.09] dark:opacity-[0.14]"
+                      />
                     </div>
                   </div>
                 </article>
