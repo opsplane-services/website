@@ -22,6 +22,12 @@ export interface SiteContent {
     lede: string;
     items: { id: ServiceId; name: string; description: string }[];
   };
+  deployment: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    options: { name: string; description: string }[];
+  };
   value: {
     eyebrow: string;
     title: string;
@@ -72,7 +78,7 @@ export const content: SiteContent = {
   meta: {
     title: 'OpsPlane Services',
     description:
-      'One self-hosted platform for everything around your business logic: identity and secrets, observability, SLOs and incidents, feature flags, an API gateway, an AI stack and durable execution. Fewer vendors, lower cost, small enough to run yourself.',
+      'One cloud-native platform for everything around your business logic: identity and secrets, observability, SLOs and incidents, feature flags, an API gateway, an AI stack and durable execution. Run it managed or on your own infrastructure. Fewer vendors, lower cost.',
   },
   nav: {
     home: 'Home',
@@ -82,10 +88,10 @@ export const content: SiteContent = {
     close: 'Close',
   },
   hero: {
-    eyebrow: 'One self-hosted platform',
+    eyebrow: 'Managed or self-hosted',
     title: 'Everything around your business logic, in one platform.',
     lede:
-      'Identity and secrets, observability, SLOs and incidents, feature flags, an API gateway, an AI stack and durable execution — in a single platform you run yourself. Small enough that one team can operate it, broad enough to replace a shelf of SaaS subscriptions. You write the business logic; OpsPlane covers everything around it.',
+      'Identity and secrets, observability, SLOs and incidents, feature flags, an API gateway, an AI stack and durable execution — in one cloud-native platform, run as a managed service or on your own infrastructure. Broad enough to replace a shelf of SaaS subscriptions, small enough that one team can operate it. You write the business logic; OpsPlane covers everything around it.',
     primary: 'Get in touch',
   },
   services: {
@@ -138,6 +144,24 @@ export const content: SiteContent = {
       },
     ],
   },
+  deployment: {
+    eyebrow: 'How you run it',
+    title: 'Managed, or on your own infrastructure',
+    lede:
+      'It is cloud native either way, and it is the same software either way — so the choice is a deployment decision rather than a commitment. Start managed and bring it in-house later, or the other way round.',
+    options: [
+      {
+        name: 'Managed',
+        description:
+          'We run the platform for you. Nothing to install, upgrade or keep available, and one bill instead of the shelf of subscriptions it replaces.',
+      },
+      {
+        name: 'Self-hosted',
+        description:
+          'You run it on your own Kubernetes cluster, against your own PostgreSQL, inside your own network boundary — so your incident data and your prompts never leave your infrastructure.',
+      },
+    ],
+  },
   value: {
     eyebrow: 'The economics',
     title: 'Fewer vendors, lower cost, less to hold together',
@@ -162,7 +186,7 @@ export const content: SiteContent = {
       {
         title: 'Small enough to actually run',
         body:
-          'A handful of Rust binaries and one PostgreSQL. Self-hosting this is not meant to become a platform team’s full-time job.',
+          'A handful of services and one PostgreSQL. Self-hosted, it is not meant to become a platform team’s full-time job — and managed, there is nothing to run at all.',
       },
     ],
   },
@@ -204,9 +228,9 @@ export const content: SiteContent = {
           'Identity is defined once and every service reads it. No duplicated user tables, no permission model that drifts from service to service.',
       },
       {
-        title: 'Self-hosted, not SaaS-shaped',
+        title: 'Cloud native, wherever it runs',
         body:
-          'Runs on your Kubernetes cluster, against your PostgreSQL, behind your network boundary. Your incident data and your prompts never leave your infrastructure.',
+          'Kubernetes-native from the start, so the managed service and a self-hosted install are the same software. Moving between them is a deployment decision, not a migration.',
       },
       {
         title: 'Open protocols over lock-in',
@@ -250,7 +274,7 @@ export const content: SiteContent = {
   },
   footer: {
     tagline:
-      'One self-hosted platform for everything around your business logic. Fewer vendors, less to run.',
+      'One cloud-native platform for everything around your business logic — managed, or on your own infrastructure.',
     navTitle: 'Site',
     resourcesTitle: 'Contact',
     rights: 'All rights reserved.',
