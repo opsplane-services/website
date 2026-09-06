@@ -78,7 +78,7 @@ export const content: SiteContent = {
   meta: {
     title: 'OpsPlane Services',
     description:
-      'One cloud-native platform for everything around your business logic: identity and secrets, observability, SLOs and incidents, feature flags, an API gateway, an AI stack and durable execution. Run it managed or on your own infrastructure. Fewer vendors, lower cost.',
+      'One cloud-native platform for everything around your business logic: identity and secrets, observability, SLOs and incidents, feature flags, an API gateway, an AI stack and durable execution. Run it managed, or on any cloud you like. Fewer vendors, lower cost.',
   },
   nav: {
     home: 'Home',
@@ -148,7 +148,7 @@ export const content: SiteContent = {
     eyebrow: 'How you run it',
     title: 'Managed, or on your own infrastructure',
     lede:
-      'It is cloud native either way, and it is the same software either way — so the choice is a deployment decision rather than a commitment. Start managed and bring it in-house later, or the other way round.',
+      'It is the same software either way, and it runs on any cloud — so the choice is a deployment decision rather than a commitment. Start managed and bring it in-house later, or the other way round.',
     options: [
       {
         name: 'Managed',
@@ -158,7 +158,7 @@ export const content: SiteContent = {
       {
         name: 'Self-hosted',
         description:
-          'You run it on your own Kubernetes cluster, against your own PostgreSQL, inside your own network boundary — so your incident data and your prompts never leave your infrastructure.',
+          'You run it on your own Kubernetes cluster — on AWS, Google Cloud, Azure or your own hardware — against your own PostgreSQL and inside your own network boundary, so your incident data and your prompts never leave your infrastructure.',
       },
     ],
   },
@@ -230,7 +230,7 @@ export const content: SiteContent = {
       {
         title: 'Cloud native, wherever it runs',
         body:
-          'Kubernetes-native from the start, so the managed service and a self-hosted install are the same software. Moving between them is a deployment decision, not a migration.',
+          'Kubernetes-native from the start, so it runs on any conformant cluster — any cloud, or your own hardware — and the managed service is the same software. Moving is a deployment decision, not a migration, and never a re-platforming.',
       },
       {
         title: 'Open protocols over lock-in',
@@ -274,7 +274,7 @@ export const content: SiteContent = {
   },
   footer: {
     tagline:
-      'One cloud-native platform for everything around your business logic — managed, or on your own infrastructure.',
+      'One cloud-native platform for everything around your business logic — managed, or on any cloud you run yourself.',
     navTitle: 'Site',
     resourcesTitle: 'Contact',
     rights: 'All rights reserved.',
