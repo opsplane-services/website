@@ -72,8 +72,9 @@ export default function LandingPage() {
                   <p className="mt-3 text-sm leading-relaxed text-foreground-secondary">
                     {service.description}
                   </p>
-                  <div className="mt-6 flex flex-1 items-end">
-                    <div className="w-full text-foreground-tertiary">
+                  {/* Full-strength colour — the figure grades itself with opacity. */}
+                  <div className="mt-8 flex flex-1 items-end">
+                    <div className="w-full text-foreground">
                       <ServiceDiagram id={service.id} />
                     </div>
                   </div>
