@@ -50,7 +50,7 @@ REGULAR, MEDIUM, SEMIBOLD = "Inter", "Inter-Medium", "Inter-SemiBold"
 NAME = "Szabo Oliver Mihaly"
 ROLE = "CEO"
 COMPANY = "OpsPlane Services Ltd."
-EMAIL = "opsplane@opslane.eu"
+EMAIL = "opsplane@opsplane.eu"
 WEBSITE = "opsplane.eu"
 TAGLINE = "Cloud-native operations platform"
 

@@ -8,7 +8,7 @@ export const site = {
    * NEXT_PUBLIC_CONTACT_EMAIL repository variable (the Pages workflow passes
    * it through), or by putting it in .env.local for development.
    */
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'opsplane@opslane.eu',
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'opsplane@opsplane.eu',
   /**
    * Formspree form id (the part after /f/ in the endpoint URL). Set it as a repo
    * variable named NEXT_PUBLIC_FORMSPREE_ID and the contact form posts there.
