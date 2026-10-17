@@ -137,5 +137,8 @@ happens in reverse.
 ## Before launch
 
 - [ ] Set the `NEXT_PUBLIC_FORMSPREE_ID` repository variable to switch the contact form on
-- [ ] The AI Stack and Durable Execution service cards describe capabilities presented as
-      available. Keep the copy in step with what the platform actually does by launch.
+- [ ] Keep the service cards in step with the platform. Observability carries an
+      "On the roadmap" badge and Durable Execution "In on-call today"; remove them only when
+      that changes.
+- [ ] The footprint numbers ("< 170 MB" etc.) were measured in October 2026; re-measure
+      before major releases.
