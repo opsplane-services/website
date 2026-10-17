@@ -17,6 +17,7 @@ export function Header() {
   const links = [
     { href: '/', label: content.nav.home, exact: true },
     { href: '/about', label: content.nav.about, exact: false },
+    { href: '/partners', label: content.nav.partners, exact: false },
     { href: '/blog', label: content.nav.blog, exact: false },
     { href: '/contact', label: content.nav.contact, exact: false },
   ];

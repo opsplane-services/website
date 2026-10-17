@@ -133,22 +133,55 @@ function FlagsPanel() {
   );
 }
 
-/** AI Stack — the chat surface. */
+/** AI Hub — a governed chat turn. */
 function AiPanel() {
   return (
     <Panel>
       <div className={clsx('flex items-center justify-between', HEAD)}>
-        <span>Assistant</span>
-        <Pill>claude-opus-5</Pill>
+        <span>On-call assistant</span>
+        <Pill>mistral · EU</Pill>
       </div>
       <div className="space-y-1.5 p-2.5">
-        <div className="ml-auto w-[70%] border border-border bg-background-secondary px-2 py-1 text-[10px] text-foreground-secondary">
-          Which services breached their SLO this week?
+        <div className="ml-auto w-[78%] border border-border bg-background-secondary px-2 py-1 text-[10px] text-foreground-secondary">
+          Postgres primary is down. Page me at [EMAIL]
         </div>
-        <div className="w-[85%] border border-border px-2 py-1 text-[10px] text-foreground-secondary">
-          Two — checkout-api and search. Both burned their budget on Tuesday.
+        <div className="border-l-2 border-severity-medium pl-1.5 text-[9px] text-foreground-tertiary">
+          Guardrail · 1 email removed before reaching the model
+        </div>
+        <div className="w-[88%] border border-border px-2 py-1 text-[10px] text-foreground-secondary">
+          Per runbook <span className={MONO}>db-failover</span>: promote the replica, then check lag.
         </div>
       </div>
+    </Panel>
+  );
+}
+
+/** On-call — noise reduction funnel. */
+function OncallPanel() {
+  const rows: [string, string, 'ok' | 'warn' | 'crit'][] = [
+    ['Alerts received', '1,284', 'warn'],
+    ['Deduplicated', '1,019', 'ok'],
+    ['Suppressed (maintenance, flapping)', '172', 'ok'],
+    ['Paged a human', '37', 'crit'],
+  ];
+  return (
+    <Panel>
+      <div className={clsx('flex items-center justify-between', HEAD)}>
+        <span>Noise, last 24h</span>
+        <span className="normal-case tracking-normal text-foreground-secondary">−97%</span>
+      </div>
+      {rows.map(([label, value, tone]) => (
+        <div
+          key={label}
+          className={clsx('grid grid-cols-[1fr_auto] items-center gap-2 border-t border-border', CELL)}
+        >
+          <span className="flex items-center gap-1.5">
+            <Dot tone={tone} />
+            {label}
+          </span>
+          <span className={MONO}>{value}</span>
+        </div>
+      ))}
     </Panel>
   );
 }
@@ -279,6 +312,7 @@ const panels: Record<ServiceId, () => JSX.Element> = {
   gateway: GatewayPanel,
   flags: FlagsPanel,
   ai: AiPanel,
+  oncall: OncallPanel,
   durable: DurablePanel,
   observability: ObservabilityPanel,
   slo: SloPanel,
