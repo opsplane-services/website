@@ -34,6 +34,7 @@ export function Footer() {
               {[
                 { href: '/', label: content.nav.home },
                 { href: '/about', label: content.nav.about },
+                { href: '/partners', label: content.nav.partners },
                 { href: '/blog', label: content.nav.blog },
                 { href: '/contact', label: content.nav.contact },
               ].map((link) => (

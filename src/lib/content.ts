@@ -2,6 +2,7 @@ export type ServiceId =
   | 'gateway'
   | 'flags'
   | 'ai'
+  | 'oncall'
   | 'durable'
   | 'observability'
   | 'slo'
@@ -9,7 +10,15 @@ export type ServiceId =
 
 export interface SiteContent {
   meta: { title: string; description: string };
-  nav: { home: string; about: string; blog: string; contact: string; menu: string; close: string };
+  nav: {
+    home: string;
+    about: string;
+    partners: string;
+    blog: string;
+    contact: string;
+    menu: string;
+    close: string;
+  };
   hero: {
     eyebrow: string;
     title: string;
@@ -20,7 +29,26 @@ export interface SiteContent {
     eyebrow: string;
     title: string;
     lede: string;
-    items: { id: ServiceId; name: string; description: string }[];
+    items: { id: ServiceId; name: string; description: string; status?: string }[];
+  };
+  sovereignty: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    points: { title: string; body: string }[];
+  };
+  footprint: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    stats: { value: string; label: string }[];
+    note: string;
+  };
+  technology: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    points: { title: string; body: string }[];
   };
   deployment: {
     eyebrow: string;
@@ -45,7 +73,19 @@ export interface SiteContent {
     title: string;
     items: { title: string; body: string }[];
   };
-  cta: { title: string; lede: string; primary: string };
+  cta: { title: string; lede: string; primary: string; secondary: string };
+  partners: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    offerTitle: string;
+    offer: { title: string; body: string }[];
+    fitTitle: string;
+    fit: string[];
+    askTitle: string;
+    ask: string[];
+    cta: string;
+  };
   about: {
     eyebrow: string;
     title: string;
@@ -86,28 +126,29 @@ export const content: SiteContent = {
   meta: {
     title: 'OpsPlane Services',
     description:
-      'One cloud-native platform for everything around your business logic: identity and secrets, observability, SLOs and incidents, feature flags, an API gateway, an AI stack and durable execution. Run it managed, or on any cloud you like. Fewer vendors, lower cost.',
+      'A sovereign platform for everything around your business logic: identity and secrets, feature flags, an API gateway, incidents and on-call, and governed AI. Small Rust services, run managed or on your own Kubernetes. Fewer vendors, lower cost, your data where you decide.',
   },
   nav: {
     home: 'Home',
     about: 'About',
+    partners: 'Design partners',
     blog: 'Blog',
     contact: 'Contact',
     menu: 'Menu',
     close: 'Close',
   },
   hero: {
-    eyebrow: 'Managed or self-hosted',
+    eyebrow: 'Sovereign · managed or self-hosted',
     title: 'Everything around your business logic, in one platform.',
     lede:
-      'Identity and secrets, observability, SLOs and incidents, feature flags, an API gateway, an AI stack and durable execution — in one cloud-native platform, run as a managed service or on your own infrastructure. Broad enough to replace a shelf of SaaS subscriptions, small enough that one team can operate it. You write the business logic; OpsPlane covers everything around it.',
+      'Identity and secrets, feature flags, an API gateway, incidents and on-call, and governed AI, in one platform of small Rust services. Run it as a managed service or on your own Kubernetes, on the cloud and in the region you choose. Broad enough to replace a shelf of SaaS subscriptions, small enough that one team can operate it. You write the business logic; OpsPlane covers everything around it.',
     primary: 'Get in touch',
   },
   services: {
     eyebrow: 'The platform',
     title: 'One control plane, everything behind it',
     lede:
-      'Each service runs independently, with its own database and API. Run all of them, or only the ones you need — they share one identity model, one gateway and one audit trail.',
+      'Each service runs independently, with its own database and API. Run all of them, or only the ones you need. They share one identity model, one gateway and one audit trail.',
     items: [
       {
         id: 'gateway',
@@ -123,21 +164,29 @@ export const content: SiteContent = {
       },
       {
         id: 'ai',
-        name: 'AI Stack',
+        name: 'AI Hub',
         description:
-          'One chat interface over the whole AI surface, with many separate AI components behind a single front end and the same identity and audit trail as everything else.',
+          'Governed AI for the whole team: a chat interface and an OpenAI-compatible API, with agents that use your runbooks and platform tools. A policy for where models may run, personal data redacted before any model sees it, budgets and a full audit trail.',
+      },
+      {
+        id: 'oncall',
+        name: 'On-call & Alert Noise Reduction',
+        description:
+          'Alerts from Grafana and PagerDuty, deduplicated, silenced during maintenance, checked for flapping and grouped into incidents, so people are woken up only when it matters. Escalations run as durable workflows.',
       },
       {
         id: 'durable',
         name: 'Durable Execution',
         description:
-          'Long-running work that survives restarts, retries and deploys, so you are not hand-writing the bookkeeping around it.',
+          'Long-running work that survives restarts, retries and deploys. It runs on Temporal, with workflows compiled to WebAssembly, and powers on-call automation today.',
+        status: 'In on-call today',
       },
       {
         id: 'observability',
         name: 'Observability',
         description:
           'Metrics, logs and traces from your services under one query surface, feeding the same objectives and alerts the incident side runs on.',
+        status: 'On the roadmap',
       },
       {
         id: 'slo',
@@ -150,6 +199,85 @@ export const content: SiteContent = {
         name: 'Security & Identity',
         description:
           'Who someone is and what they can reach, in one place, with a single API in front of every secret store you already run.',
+      },
+    ],
+  },
+  sovereignty: {
+    eyebrow: 'Sovereign by default',
+    title: 'Your operations, under your control',
+    lede:
+      'Identity, secrets, incidents and prompts are the most sensitive data a company has. OpsPlane keeps them where you decide, and enforces it in code rather than in a contract.',
+    points: [
+      {
+        title: 'Runs where you decide',
+        body:
+          'Any conformant Kubernetes cluster: your own hardware, a hyperscaler or a regional cloud such as OVHcloud, Scaleway, IONOS, Hetzner or STACKIT. The managed service runs in the region you need, including the EU.',
+      },
+      {
+        title: 'Model policy, enforced',
+        body:
+          'AI Hub knows where each model provider processes data, and agents use only the providers you configure. Run models on your own infrastructure, or keep AI inside the EU with one setting: Mistral and the European clouds’ model APIs work out of the box, as do self-hosted models.',
+      },
+      {
+        title: 'Personal data stays out of prompts',
+        body:
+          'Email addresses, phone numbers, IBANs, card numbers and IP addresses are redacted before a message reaches a model or the database.',
+      },
+      {
+        title: 'Open protocols, no lock-in',
+        body:
+          'OpenFeature for flags, OpenID Connect for login, the Model Context Protocol for AI tools, the OpenAI API for models. Every resource is a Kubernetes object you can export.',
+      },
+    ],
+  },
+  footprint: {
+    eyebrow: 'Small by design',
+    title: 'The whole platform in under 170 MB of memory',
+    lede:
+      'Every backend service is a single Rust binary on a shared PostgreSQL. That is what makes self-hosting realistic and the managed service affordable.',
+    stats: [
+      { value: '< 170 MB', label: 'memory for all seven services at idle' },
+      { value: '10–26 MB', label: 'per service binary' },
+      { value: '40', label: 'Kubernetes resource types, one per configurable entity' },
+      { value: '1', label: 'resource to install the whole platform' },
+    ],
+    note: 'Measured on release builds with each service connected to its database, October 2026.',
+  },
+  technology: {
+    eyebrow: 'Why Rust and WebAssembly',
+    title: 'Secure by construction, fast without tuning',
+    lede:
+      'The platform holds your identities, secrets and incidents, so we chose the technology for safety first, and got speed with it.',
+    points: [
+      {
+        title: 'Whole classes of vulnerabilities ruled out',
+        body:
+          'Rust checks memory safety when the code is compiled. Buffer overflows, use-after-free and data races, the bugs behind about 70% of serious security issues that Microsoft and Google report in C and C++ code, cannot occur in safe Rust.',
+      },
+      {
+        title: 'Native speed, predictable latency',
+        body:
+          'Rust compiles to machine code and has no garbage collector, so there are no pauses under load. The same hardware serves more traffic, and a full platform fits on one small node.',
+      },
+      {
+        title: 'Less to attack',
+        body:
+          'Each service ships as one binary in a minimal (distroless) container, with no shell or package manager inside. Fewer moving parts means fewer things to patch.',
+      },
+      {
+        title: 'Extensions that run in a sandbox',
+        body:
+          'Gateway plugins and on-call workflows run as WebAssembly. A plugin cannot touch the file system or the network, gets a limited CPU budget, and a crash in it cannot take the gateway down.',
+      },
+      {
+        title: 'Workflows you can trust to resume',
+        body:
+          'On-call workflows are compiled to WebAssembly and run on Temporal, which replays them deterministically after a restart, a deploy or a failure, so an escalation is never lost halfway.',
+      },
+      {
+        title: 'Portable and language-neutral',
+        body:
+          'A WebAssembly module runs the same on any CPU and operating system, and you can write plugins in any language that compiles to it, not only Rust.',
       },
     ],
   },
@@ -167,7 +295,7 @@ export const content: SiteContent = {
       {
         name: 'Self-hosted',
         description:
-          'You run it on your own Kubernetes cluster — on AWS, Google Cloud, Azure or your own hardware — against your own PostgreSQL and inside your own network boundary, so your incident data and your prompts never leave your infrastructure.',
+          'You run it on your own Kubernetes cluster, on any cloud or on your own hardware, against your own PostgreSQL and inside your own network boundary, so your incident data and your prompts never leave your infrastructure.',
       },
     ],
   },
@@ -203,17 +331,17 @@ export const content: SiteContent = {
     eyebrow: 'Declarative by default',
     title: 'Your platform, described in YAML',
     lede:
-      'A Kubernetes operator watches your custom resources and reconciles them into the services behind them. Users, roles, gateway routes, rate limits and secret connectors all live in your Git repository — not in a UI someone clicked through once.',
+      'A Kubernetes operator installs the platform and reconciles your custom resources into the services behind it. Users, roles, feature flags, gateway routes, alert rules and AI agents all live in your Git repository, not in a UI someone clicked through once.',
     points: [
       {
         title: 'GitOps from day one',
         body:
-          'Every platform resource is a custom resource, so changes go through the same review and rollback process as your application code.',
+          'Every platform resource is a custom resource, 40 kinds in all, so changes go through the same review and rollback process as your application code. One OpsPlanePlatform resource deploys every service.',
       },
       {
         title: 'Reconciled, not scripted',
         body:
-          'The operator syncs resources to each service through create-if-not-exists endpoints. Re-applying is always safe.',
+          'The operator syncs resources to each service through idempotent endpoints, re-applies them periodically and removes them when you delete the resource. Secrets and ConfigMaps it references are watched too.',
       },
       {
         title: 'A web UI when you want one',
@@ -244,15 +372,51 @@ export const content: SiteContent = {
       {
         title: 'Open protocols over lock-in',
         body:
-          'OFREP for flags, Grafana webhooks for alerts, standard OAuth for login. Swap OpsPlane out and your integrations still make sense.',
+          'OFREP for flags, Grafana webhooks for alerts, OpenID Connect for login, MCP and the OpenAI API for AI. Swap OpsPlane out and your integrations still make sense.',
       },
     ],
   },
   cta: {
     title: 'Bring your platform under one roof',
     lede:
-      'Tell us what your team is paying for today and we will help you work out whether OpsPlane replaces enough of it to be worth the move — or say so plainly if it does not.',
+      'Tell us what your team is paying for today and we will help you work out whether OpsPlane replaces enough of it to be worth the move, or say so plainly if it does not.',
     primary: 'Get in touch',
+    secondary: 'Become a design partner',
+  },
+  partners: {
+    eyebrow: 'Design partner programme',
+    title: 'Run OpsPlane with us before everyone else does.',
+    lede:
+      'We are working with a small number of companies to run OpsPlane in real environments. You get the platform and the people who build it; we get honest feedback from teams on call.',
+    offerTitle: 'What you get',
+    offer: [
+      {
+        title: 'Six months free',
+        body: 'The platform self-hosted on your cluster, or managed by us in the region you need.',
+      },
+      {
+        title: 'Direct line to the engineers',
+        body: 'A shared channel with the people writing the code, and help with the setup and migration.',
+      },
+      {
+        title: 'Influence on the roadmap',
+        body: 'Your on-call, AI and compliance needs shape what we build next.',
+      },
+    ],
+    fitTitle: 'A good fit if you',
+    fit: [
+      'run software in production with an on-call rota, or are moving off Opsgenie before it shuts down in April 2027',
+      'want AI for your engineers without your data leaving the regions and providers you trust',
+      'need to answer NIS2, DORA or GDPR questions about where your operational data lives',
+      'run Kubernetes, or are happy for us to run the platform for you',
+    ],
+    askTitle: 'What we ask',
+    ask: [
+      'a monthly feedback call',
+      'permission to name you as a design partner, and a short case study if it works for you',
+      'a letter of intent if you would buy it once it meets your requirements',
+    ],
+    cta: 'Apply as a design partner',
   },
   about: {
     eyebrow: 'Founded 2022',
@@ -312,7 +476,7 @@ export const content: SiteContent = {
   },
   footer: {
     tagline:
-      'One cloud-native platform for everything around your business logic — managed, or on any cloud you run yourself.',
+      'One sovereign platform for everything around your business logic, managed for you or on any cluster you run yourself.',
     navTitle: 'Site',
     resourcesTitle: 'Contact',
     rights: 'All rights reserved.',

@@ -2,6 +2,7 @@ import {
   Activity,
   AlertTriangle,
   ArrowRight,
+  BellRing,
   Flag,
   MessagesSquare,
   Network,
@@ -10,6 +11,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { ButtonLink } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
 import { ServicePanel } from '@/components/ServicePanel';
 import { content as dict, type ServiceId } from '@/lib/content';
 
@@ -18,6 +20,7 @@ const serviceIcons: Record<ServiceId, LucideIcon> = {
   gateway: Network,
   flags: Flag,
   ai: MessagesSquare,
+  oncall: BellRing,
   durable: Repeat,
   observability: Activity,
   slo: AlertTriangle,
@@ -68,6 +71,7 @@ export default function LandingPage() {
                   <div className="flex items-center gap-2.5">
                     <Icon size={18} strokeWidth={1.5} className="text-foreground" />
                     <h3 className="text-sm font-semibold text-foreground">{service.name}</h3>
+                    {service.status && <Badge className="ml-auto">{service.status}</Badge>}
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-foreground-secondary">
                     {service.description}
@@ -81,16 +85,79 @@ export default function LandingPage() {
               );
             })}
 
-            {/* Seven cards leave a hanging cell in the border grid. These keep
-                it rectangular: one fills the gap at two columns, both at three. */}
-            <div
-              aria-hidden="true"
-              className="hidden border-b border-r border-border bg-background-secondary md:block"
-            />
+            {/* Eight cards leave a hanging cell at three columns; this keeps the
+                border grid rectangular. */}
             <div
               aria-hidden="true"
               className="hidden border-b border-r border-border bg-background-secondary lg:block"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* Sovereignty */}
+      <section className="border-b border-border bg-background-secondary">
+        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
+          <p className="eyebrow">{dict.sovereignty.eyebrow}</p>
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+            {dict.sovereignty.title}
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-foreground-secondary">
+            {dict.sovereignty.lede}
+          </p>
+          <div className="mt-10 grid border-l border-t border-border bg-background md:grid-cols-2">
+            {dict.sovereignty.points.map((point) => (
+              <div key={point.title} className="border-b border-r border-border p-6">
+                <h3 className="text-sm font-semibold text-foreground">{point.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-foreground-secondary">{point.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Footprint */}
+      <section className="border-b border-border">
+        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
+          <p className="eyebrow">{dict.footprint.eyebrow}</p>
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+            {dict.footprint.title}
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-foreground-secondary">
+            {dict.footprint.lede}
+          </p>
+          <dl className="mt-10 grid grid-cols-2 border-l border-t border-border lg:grid-cols-4">
+            {dict.footprint.stats.map((stat) => (
+              <div key={stat.label} className="border-b border-r border-border p-6">
+                <dt className="sr-only">{stat.label}</dt>
+                <dd className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+                  {stat.value}
+                </dd>
+                <p className="mt-2 text-xs leading-relaxed text-foreground-secondary">{stat.label}</p>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-4 text-xs text-foreground-tertiary">{dict.footprint.note}</p>
+        </div>
+      </section>
+
+      {/* Why Rust and WebAssembly */}
+      <section className="border-b border-border bg-background-secondary">
+        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
+          <p className="eyebrow">{dict.technology.eyebrow}</p>
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+            {dict.technology.title}
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-foreground-secondary">
+            {dict.technology.lede}
+          </p>
+          <div className="mt-10 grid border-l border-t border-border bg-background md:grid-cols-2 lg:grid-cols-3">
+            {dict.technology.points.map((point) => (
+              <div key={point.title} className="border-b border-r border-border p-6">
+                <h3 className="text-sm font-semibold text-foreground">{point.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-foreground-secondary">{point.body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -205,10 +272,13 @@ export default function LandingPage() {
             <p className="mt-4 max-w-2xl text-sm leading-relaxed text-foreground-secondary">
               {dict.cta.lede}
             </p>
-            <div className="mt-8">
+            <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/contact" size="lg">
                 {dict.cta.primary}
                 <ArrowRight size={16} strokeWidth={1.5} />
+              </ButtonLink>
+              <ButtonLink href="/partners" size="lg" variant="secondary">
+                {dict.cta.secondary}
               </ButtonLink>
             </div>
           </div>
