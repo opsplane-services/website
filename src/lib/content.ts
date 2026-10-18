@@ -44,6 +44,12 @@ export interface SiteContent {
     stats: { value: string; label: string }[];
     note: string;
   };
+  technology: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    points: { title: string; body: string }[];
+  };
   deployment: {
     eyebrow: string;
     title: string;
@@ -236,6 +242,44 @@ export const content: SiteContent = {
       { value: '1', label: 'resource to install the whole platform' },
     ],
     note: 'Measured on release builds with each service connected to its database, October 2026.',
+  },
+  technology: {
+    eyebrow: 'Why Rust and WebAssembly',
+    title: 'Secure by construction, fast without tuning',
+    lede:
+      'The platform holds your identities, secrets and incidents, so we chose the technology for safety first, and got speed with it.',
+    points: [
+      {
+        title: 'Whole classes of vulnerabilities ruled out',
+        body:
+          'Rust checks memory safety when the code is compiled. Buffer overflows, use-after-free and data races, the bugs behind about 70% of serious security issues that Microsoft and Google report in C and C++ code, cannot occur in safe Rust.',
+      },
+      {
+        title: 'Native speed, predictable latency',
+        body:
+          'Rust compiles to machine code and has no garbage collector, so there are no pauses under load. The same hardware serves more traffic, and a full platform fits on one small node.',
+      },
+      {
+        title: 'Less to attack',
+        body:
+          'Each service ships as one binary in a minimal (distroless) container, with no shell or package manager inside. Fewer moving parts means fewer things to patch.',
+      },
+      {
+        title: 'Extensions that run in a sandbox',
+        body:
+          'Gateway plugins and on-call workflows run as WebAssembly. A plugin cannot touch the file system or the network, gets a limited CPU budget, and a crash in it cannot take the gateway down.',
+      },
+      {
+        title: 'Workflows you can trust to resume',
+        body:
+          'On-call workflows are compiled to WebAssembly and run on Temporal, which replays them deterministically after a restart, a deploy or a failure, so an escalation is never lost halfway.',
+      },
+      {
+        title: 'Portable and language-neutral',
+        body:
+          'A WebAssembly module runs the same on any CPU and operating system, and you can write plugins in any language that compiles to it, not only Rust.',
+      },
+    ],
   },
   deployment: {
     eyebrow: 'How you run it',

@@ -141,6 +141,27 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Why Rust and WebAssembly */}
+      <section className="border-b border-border bg-background-secondary">
+        <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
+          <p className="eyebrow">{dict.technology.eyebrow}</p>
+          <h2 className="mt-3 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+            {dict.technology.title}
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-foreground-secondary">
+            {dict.technology.lede}
+          </p>
+          <div className="mt-10 grid border-l border-t border-border bg-background md:grid-cols-2 lg:grid-cols-3">
+            {dict.technology.points.map((point) => (
+              <div key={point.title} className="border-b border-r border-border p-6">
+                <h3 className="text-sm font-semibold text-foreground">{point.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-foreground-secondary">{point.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* How you buy it: managed or self-hosted */}
       <section className="border-b border-border">
         <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-20">
