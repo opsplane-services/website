@@ -1,13 +1,13 @@
 ---
 title: 'Sovereignty you can enforce in code'
 date: '2026-10-17'
-excerpt: 'An "EU region" is a promise about where servers stand. We think sovereignty should be a property of the software: which models it may call, what data leaves the building, and who can change that. Here is how OpsPlane does it.'
+excerpt: 'A hosting region is a promise about where servers stand. We think sovereignty should be a property of the software: which models it may call, what data leaves the building, and who can change that. Here is how OpsPlane does it.'
 author: 'The OpsPlane team'
 tags: ['sovereignty', 'ai', 'platform']
 ---
 
-Most sovereignty claims are about geography. The servers are in Frankfurt, the data
-stays in the EU region, the contract says so.
+Most sovereignty claims are about geography. The servers are in a given country, the
+data stays in a given region, the contract says so.
 
 That matters, but it is a promise rather than a property. It does not tell you what the
 software does when someone configures a new AI model, pastes a customer's email address
@@ -22,10 +22,10 @@ API for applications, and agents that use the team's runbooks and platform tools
 turn passes the same checks, in the same order, before a model is called:
 
 1. **Which model may this agent use?** Every provider is tagged with where it
-   processes data: EU, self-hosted, or elsewhere. Under the default `eu_only` policy,
-   an agent configured with a provider outside the EU or your own infrastructure is
-   refused, with a message saying why. Mistral, the European clouds' model APIs and
-   self-hosted models work out of the box.
+   processes data: self-hosted, EU, or elsewhere. You decide which providers your
+   agents may use. For European teams, the `eu_only` policy refuses any provider outside
+   the EU or your own infrastructure, with a message saying why. Mistral, the European
+   clouds' model APIs and self-hosted models work out of the box.
 2. **What is in the message?** Email addresses, phone numbers, IBANs (with the checksum
    verified), card numbers (Luhn-checked) and IP addresses are replaced with
    placeholders *before* the text reaches a model or the database. A guardrail can
@@ -67,5 +67,5 @@ difference between "self-hosting is possible" and "self-hosting is something a s
 team actually does".
 
 We are looking for a handful of [design partners](/partners/) to run it with us. If
-your team is on call, wants AI without sending data outside the EU, or has to move off
+your team is on call, wants AI without data leaving the providers it trusts, or has to move off
 Opsgenie before April 2027, we would like to hear from you.

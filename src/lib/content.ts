@@ -120,7 +120,7 @@ export const content: SiteContent = {
   meta: {
     title: 'OpsPlane Services',
     description:
-      'An EU-sovereign platform for everything around your business logic: identity and secrets, feature flags, an API gateway, incidents and on-call, and governed AI. Small Rust services, run managed on European clouds or on your own Kubernetes. Fewer vendors, lower cost, your data in the EU.',
+      'A sovereign platform for everything around your business logic: identity and secrets, feature flags, an API gateway, incidents and on-call, and governed AI. Small Rust services, run managed or on your own Kubernetes. Fewer vendors, lower cost, your data where you decide.',
   },
   nav: {
     home: 'Home',
@@ -132,10 +132,10 @@ export const content: SiteContent = {
     close: 'Close',
   },
   hero: {
-    eyebrow: 'EU-sovereign · managed or self-hosted',
+    eyebrow: 'Sovereign · managed or self-hosted',
     title: 'Everything around your business logic, in one platform.',
     lede:
-      'Identity and secrets, feature flags, an API gateway, incidents and on-call, and governed AI, in one platform of small Rust services. Run it as a managed service on European clouds or on your own Kubernetes. Broad enough to replace a shelf of US SaaS subscriptions, small enough that one team can operate it. You write the business logic; OpsPlane covers everything around it.',
+      'Identity and secrets, feature flags, an API gateway, incidents and on-call, and governed AI, in one platform of small Rust services. Run it as a managed service or on your own Kubernetes, on the cloud and in the region you choose. Broad enough to replace a shelf of SaaS subscriptions, small enough that one team can operate it. You write the business logic; OpsPlane covers everything around it.',
     primary: 'Get in touch',
   },
   services: {
@@ -160,7 +160,7 @@ export const content: SiteContent = {
         id: 'ai',
         name: 'AI Hub',
         description:
-          'Governed AI for the whole team: a chat interface and an OpenAI-compatible API, with agents that use your runbooks and platform tools. EU-only model policy, personal data redacted before any model sees it, budgets and a full audit trail.',
+          'Governed AI for the whole team: a chat interface and an OpenAI-compatible API, with agents that use your runbooks and platform tools. A policy for where models may run, personal data redacted before any model sees it, budgets and a full audit trail.',
       },
       {
         id: 'oncall',
@@ -198,19 +198,19 @@ export const content: SiteContent = {
   },
   sovereignty: {
     eyebrow: 'Sovereign by default',
-    title: 'Your operations, under European control',
+    title: 'Your operations, under your control',
     lede:
       'Identity, secrets, incidents and prompts are the most sensitive data a company has. OpsPlane keeps them where you decide, and enforces it in code rather than in a contract.',
     points: [
       {
-        title: 'Runs on European clouds or your own hardware',
+        title: 'Runs where you decide',
         body:
-          'OVHcloud, Scaleway, IONOS, Hetzner, STACKIT or any conformant Kubernetes cluster. The managed service runs in the EU.',
+          'Any conformant Kubernetes cluster: your own hardware, a hyperscaler or a regional cloud such as OVHcloud, Scaleway, IONOS, Hetzner or STACKIT. The managed service runs in the region you need, including the EU.',
       },
       {
-        title: 'EU-only AI, enforced',
+        title: 'Model policy, enforced',
         body:
-          'AI Hub refuses model providers outside the EU or your own infrastructure unless you explicitly allow them. Mistral and the European clouds’ model APIs work out of the box, as do self-hosted models.',
+          'AI Hub knows where each model provider processes data, and agents use only the providers you configure. Run models on your own infrastructure, or keep AI inside the EU with one setting: Mistral and the European clouds’ model APIs work out of the box, as do self-hosted models.',
       },
       {
         title: 'Personal data stays out of prompts',
@@ -251,7 +251,7 @@ export const content: SiteContent = {
       {
         name: 'Self-hosted',
         description:
-          'You run it on your own Kubernetes cluster, on a European cloud, any hyperscaler or your own hardware, against your own PostgreSQL and inside your own network boundary, so your incident data and your prompts never leave your infrastructure.',
+          'You run it on your own Kubernetes cluster, on any cloud or on your own hardware, against your own PostgreSQL and inside your own network boundary, so your incident data and your prompts never leave your infrastructure.',
       },
     ],
   },
@@ -348,7 +348,7 @@ export const content: SiteContent = {
     offer: [
       {
         title: 'Six months free',
-        body: 'The platform self-hosted on your cluster, or managed by us on a European cloud.',
+        body: 'The platform self-hosted on your cluster, or managed by us in the region you need.',
       },
       {
         title: 'Direct line to the engineers',
@@ -362,7 +362,7 @@ export const content: SiteContent = {
     fitTitle: 'A good fit if you',
     fit: [
       'run software in production with an on-call rota, or are moving off Opsgenie before it shuts down in April 2027',
-      'want AI for your engineers without sending data to providers outside the EU',
+      'want AI for your engineers without your data leaving the regions and providers you trust',
       'need to answer NIS2, DORA or GDPR questions about where your operational data lives',
       'run Kubernetes, or are happy for us to run the platform for you',
     ],
@@ -432,7 +432,7 @@ export const content: SiteContent = {
   },
   footer: {
     tagline:
-      'One EU-sovereign platform for everything around your business logic, managed on European clouds or on any cluster you run yourself.',
+      'One sovereign platform for everything around your business logic, managed for you or on any cluster you run yourself.',
     navTitle: 'Site',
     resourcesTitle: 'Contact',
     rights: 'All rights reserved.',
