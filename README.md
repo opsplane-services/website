@@ -97,6 +97,20 @@ For local testing, put the id in `.env.local`:
 NEXT_PUBLIC_FORMSPREE_ID=xyzabcde
 ```
 
+## Analytics and cookie banner
+
+Google Analytics 4 is opt-in: the GA script is only loaded after a visitor clicks **Accept** on
+the cookie banner. **Reject** keeps it off and deletes any `_ga` cookies. The choice is stored in
+`localStorage` (`opsplane_consent`), and the footer's **Cookie settings** link reopens the banner.
+
+1. Create a GA4 property at [analytics.google.com](https://analytics.google.com) and add a **Web**
+   data stream for `https://opsplane.eu`. Copy its measurement id (`G-XXXXXXXXXX`).
+2. Add a repository variable named `NEXT_PUBLIC_GA_ID` with that id (same place as the Formspree id).
+
+Without the variable the site sets no cookies, so the banner and the footer link are not shown.
+To try it locally, put `NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX` in `.env.local`. Banner copy lives in
+`content.cookies` in `src/lib/content.ts`.
+
 ## Deployment
 
 Pushes to `master` trigger `.github/workflows/pages.yml`, which builds the site and publishes it to

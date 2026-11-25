@@ -15,4 +15,9 @@ export const site = {
    * Left empty, the form falls back to a mailto: link so the page still works.
    */
   formspreeId: process.env.NEXT_PUBLIC_FORMSPREE_ID || '',
+  /**
+   * Google Analytics 4 measurement id (G-XXXXXXXXXX). Set it as a repo variable
+   * named NEXT_PUBLIC_GA_ID. Left empty, no analytics and no cookie banner.
+   */
+  gaId: process.env.NEXT_PUBLIC_GA_ID || '',
 } as const;
