@@ -120,6 +120,7 @@ export interface SiteContent {
     mailtoNote: string;
   };
   footer: { tagline: string; navTitle: string; resourcesTitle: string; rights: string };
+  cookies: { title: string; body: string; accept: string; reject: string; settings: string };
 }
 
 export const content: SiteContent = {
@@ -480,5 +481,12 @@ export const content: SiteContent = {
     navTitle: 'Site',
     resourcesTitle: 'Contact',
     rights: 'All rights reserved.',
+  },
+  cookies: {
+    title: 'Cookies',
+    body: 'We use Google Analytics cookies to count visits and see which pages are read. They are only set if you accept, and you can change your mind any time from the footer.',
+    accept: 'Accept',
+    reject: 'Reject',
+    settings: 'Cookie settings',
   },
 };

@@ -4,6 +4,7 @@ import { Mail } from 'lucide-react';
 import { withBasePath } from '@/lib/paths';
 import { content } from '@/lib/content';
 import { site } from '@/lib/site';
+import { CookieSettingsLink } from './CookieConsent';
 
 export function Footer() {
   return (
@@ -66,10 +67,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-border pt-6">
+        <div className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-6">
           <p className="text-xs text-foreground-tertiary">
             © {new Date().getFullYear()} OpsPlane Services. {content.footer.rights}
           </p>
+          <CookieSettingsLink className="text-xs text-foreground-tertiary transition-colors hover:text-foreground" />
         </div>
       </div>
     </footer>
